@@ -3,3 +3,143 @@
   padding: 0;
   box-sizing: border-box;
 }
+
+/* Cabeçalho */
+.cabecalho {
+  position: fixed;
+  width: 100%;
+  height: 62px;
+  top: 0;
+  left: 0;
+  background-color: #333333;
+}
+
+.cabecalho__container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 0 50px;
+  height: 100%;
+}
+
+.cabecalho__logo {
+  font-family: "Inter-Black", Helvetica;
+  font-weight: 1000;
+  font-size: 30px;
+  color: #f8f8f8;
+}
+
+.cabecalho__botao-login {
+  width: 116px;
+  height: 37px;
+  background-color: #08c087;
+  border-radius: 8px;
+  border: none;
+  font-family: "Inter-Black", Helvetica;
+  font-weight: 900;
+  font-size: 20px;
+  color: #ffffff;
+  text-align: center;
+  cursor: pointer;
+}
+
+/* Conteúdo principal */
+.main-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 100px 120px;
+}
+
+.paragrafo {
+  max-width: 50%;
+}
+
+.paragrafo h1 {
+  font-family: "Inter-Black", Helvetica;
+  font-weight: 1000;
+  font-size: 45px;
+  color: #333333;
+}
+
+.paragrafo h1 span {
+  color: #08c087;
+}
+
+.paragrafo p {
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  font-size: 25px;
+  color: #666666;
+  line-height: 2;
+}
+
+.imagem {
+  width: 600px;
+  height: auto;
+}
+
+.imagem img {
+  width: 100%;
+  height: auto;
+}
+
+/* Contêiner dos frames */
+.frames-container {
+  position: relative;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  justify-content: space-around;
+  width: 100;
+}
+
+/* Bloco de cada frame */
+.frame {
+  width: 350px;
+  height: 250px;
+  background-color: #e17070;
+  border-radius: 25px;
+  overflow: hidden;
+  padding: 10px;
+  position: relative;
+}
+
+/* Título dentro de cada frame */
+.frame__text-wrapper {
+  font-family: "Inter-Black", Helvetica;
+  font-weight: 1000;
+  color: #ffffff;
+  font-size: 22px;
+  text-align: center;
+  margin-bottom: 5px;
+}
+
+/* Descrição dentro de cada frame */
+.frame__descricao {
+  font-family: "Inter-Regular", Helvetica;
+  font-weight: 400;
+  color: #ffffff;
+  font-size: 16px;
+  text-align: center;
+  position: relative;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 100%;
+}
+
+/* Modificadores para diferentes frames */
+.frame--cadastro {
+  background-color: #b35ed3;
+}
+
+.frame--receita {
+  background-color: #0091bd;
+}
+
+.frame--interface {
+  background-color: #08c088;
+}
