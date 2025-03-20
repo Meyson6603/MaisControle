@@ -5,8 +5,13 @@
     font-family: Arial, sans-serif;
 }
 
+html, body {
+    height: 100%;
+    overflow: hidden; /* Remove a barra de rolagem */
+}
+
 body {
-    background-color: #f9f9f9;
+    background-color: #f9f9f9; /* Cor de fundo unificada */
 }
 
 .header {
@@ -39,6 +44,7 @@ body {
     height: calc(100vh - 60px);
     gap: 40px;
     padding: 20px;
+    overflow: auto; /* Permite rolagem interna, se necessário */
 }
 
 .form-section {
@@ -92,8 +98,8 @@ body {
 }
 
 .image-section {
-    width: 500px;
-    height: 500px;
+    width: 400px;
+    height: 400px;
     position: relative;
 }
 
