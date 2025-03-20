@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Login</title>
+        <link rel="stylesheet" href="login.css">
+    </head>
+    <body>
+        <header class="header">
+            <div class="header__logo">+Controle</div>
+            <button class="header__button">Início</button>
+        </header>
+        
+        <div class="main-container">
+            <div class="login-container">
+                <h2 class="login-container__title">Acesso ao Sistema</h2>
+                <form action="/login" method="post" class="login-container__form">
+                    <input type="text" name="username" placeholder="Nome de usuário" required class="login-container__input">
+                    <input type="password" name="password" placeholder="Senha" required class="login-container__input">
+                    <button type="submit" class="login-container__button login-container__button--submit">Acessar</button>
+                    <button type="button" class="login-container__button login-container__button--signup">Criar minha Conta</button>
+                </form>
+            </div>
+            <div class="image-container">
+                <img src="./image_man.jpg" alt="Logo da UNICID" class="image-container__img">
+                <div class="image-container__overlay"></div>
+                <h3 class="image-container__text">+Controle</h3>
+            </div>
+        </div>
+    </body>
+</html>
