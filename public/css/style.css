@@ -143,3 +143,134 @@
 .frame--interface {
   background-color: #08c088;
 }
+
+/* Responsividade */
+@media (max-width: 1024px) {
+  .cabecalho__container {
+    padding: 0 20px;
+  }
+
+  .main-content {
+    flex-direction: column;
+    padding: 60px 20px; /* Reduzi o padding */
+    text-align: center;
+  }
+
+  .paragrafo {
+    max-width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .imagem {
+    width: 100%;
+    max-width: 400px;
+  }
+
+  .frames-container {
+    flex-direction: column;
+    gap: 20px;
+    width: 100%; /* Corrigido */
+  }
+
+  .frame {
+    width: 90%;
+    height: auto; /* Altura automática */
+    padding: 20px;
+  }
+
+  .frame__descricao {
+    font-size: 14px;
+    position: static; /* Remove alinhamento absoluto */
+    transform: none;
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .cabecalho {
+    height: auto;
+    padding: 10px 0;
+  }
+
+  .cabecalho__logo {
+    font-size: 24px;
+  }
+
+  .cabecalho__botao-login {
+    width: 120px; /* Ajustei o tamanho */
+    font-size: 14px; /* Reduzi o tamanho da fonte */
+  }
+
+  .main-content {
+    padding: 40px 10px; /* Reduzi o padding */
+  }
+
+  .paragrafo h1 {
+    font-size: 28px; /* Reduzi o tamanho da fonte */
+  }
+
+  .paragrafo p {
+    font-size: 16px;
+  }
+
+  .imagem {
+    max-width: 300px;
+  }
+
+  .frame {
+    width: 100%;
+    height: auto;
+  }
+
+  .frame__text-wrapper {
+    font-size: 16px;
+  }
+
+  .frame__descricao {
+    font-size: 12px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cabecalho__container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cabecalho__botao-login {
+    margin-top: 10px;
+    width: 100%; /* Botão ocupa toda a largura */
+    max-width: 200px; /* Limite de largura */
+  }
+
+  .main-content {
+    padding: 80px 10px 30px; /* Adicionei padding-top para compensar o cabeçalho */
+  }
+
+  .paragrafo h1 {
+    font-size: 22px; /* Reduzi o tamanho da fonte */
+  }
+
+  .paragrafo p {
+    font-size: 14px;
+  }
+
+  .imagem {
+    max-width: 250px;
+  }
+
+  .frame {
+    padding: 10px;
+  }
+
+  .frame__text-wrapper {
+    font-size: 14px;
+  }
+
+  .frame__descricao {
+    font-size: 10px;
+    position: static; /* Remove alinhamento absoluto */
+    transform: none;
+    margin-top: 5px;
+  }
+}
