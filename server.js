@@ -1,13 +1,15 @@
-require("dotenv").config({ path: "./config/.env" });
+const data = require("./src/config/config.js");
 const express = require("express");
-const app = express();
 const path = require("path");
+const routes = require("./src/routers");
+const app = express();
+
 app.use(express.json());
-app.use(express.static("./public"));
-app.get("*", (req, res) => {
-  const filePath = path.join(__dirname, "public", "index.html");
-  res.sendFile(filePath);
+
+app.use(express.static(path.join(__dirname, "public")));
+
+app.use("/api", routes);
+
+app.listen(data.PORT, () => {
+  console.log(`Servidor rodando em http://localhost:${data.PORT}`);
 });
-app.listen(process.env.PORT, () =>
-  console.log(`Server is running on port ${process.env.PORT}`)
-);
