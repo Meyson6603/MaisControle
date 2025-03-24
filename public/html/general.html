@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/style.css">
+    <title>Visão Geral - +Controle</title>
+</head>
+<body>
+    <header class="header">
+        <div class="header__container">
+            <h1 class="header__logo">+Controle</h1>
+            <nav class="header__menu">
+                <a href="#" class="header__link">Visão Geral</a>
+                <a href="#" class="header__link">Lançamentos</a>
+                <a href="#" class="header__link">Relatórios</a>
+                <a href="#" class="header__link">Gestão</a>
+                <button class="header__simulator">Simulador</button>
+            </nav>
+            <div class="header__actions">
+                <button><img src="/public/image/configuracao.png" alt="Configurações" class="header__icon"></button>
+                <button><img src="/public/image/notificacao.png" alt="Notificações" class="header__icon"></button>
+                <button><img src="/public/image/sair.png" alt="Sair" class="header__icon"></button>
+            </div>
+        </div>
+    </header>
+
+    <div class="box">
+        <img class="box__calendar" src="/public/image/calendario.png" alt="Calendário">
+        <div class="box__line"></div>
+        <div class="box__left-section">
+            <div class="box__label">
+                <p class="box__greeting">
+                    <span class="box__text">Boa tarde</span>
+                    <span class="box__span">,<br/></span>
+                    <span class="box__text-secondary">Fulano!</span>
+                </p>
+                <img class="box__weather" src="/public/image/nebuloso.png" alt="Nebuloso">
+            </div>
+            <div class="box__info">
+                <div class="box__group">
+                    <div class="box__text">Receita Mensal</div>
+                    <div class="box__income">R$ 0,00</div>
+                </div>
+                <div class="box__divider"></div>
+                <div class="box__group-secondary">
+                    <div class="box__text-secondary">Despesa Mensal</div>
+                    <div class="box__expense">R$ 0,00</div>
+                </div>
+            </div>
+        </div>
+        <div class="box__right-section">
+            <div class="box__quick-access">Acesso rápido</div>
+            <div class="box__icons">
+                <button><img src="/public/image/despesa.png" alt="Despesa"></button>
+                <button><img src="/public/image/receita.png" alt="Receita"></button>
+                <button><img src="/public/image/relatorio.png" alt="Relatório"></button>
+            </div>
+        </div>
+    </div>
+
+    <div class="cards-container">
+        <div class="cards cards--left">
+            <div class="card">
+                <div class="card__data">
+                    <div class="card__text">Saldo Geral</div>
+                    <p class="card__value">
+                        <span class="card__currency">R$</span>
+                        <span class="card__amount">200</span>
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card__data">
+                    <div class="card__text">Faturas de Março</div>
+                    <p class="card__value">
+                        <span class="card__currency">R$</span>
+                        <span class="card__amount">200</span>
+                    </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card__data">
+                    <div class="card__text">Contas a Receber</div>
+                    <p class="card__value">
+                        <span class="card__currency">R$</span>
+                        <span class="card__amount">200</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="cards cards--right">
+            <div class="cards__images">
+                <button><img src="/public/image/addProduto.png" alt="Adicionar Produto"></button>
+                <button><img src="/public/image/registrarVenda.png" alt="Registrar Venda"></button>
+            </div>
+            <div class="card">
+                <div class="card__data">
+                    <div class="card__text">Contas a Pagar</div>
+                    <p class="card__value">
+                        <span class="card__currency">R$</span>
+                        <span class="card__amount">200</span>
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
