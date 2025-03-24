@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const routerExpense = require("./expenseRouter");
+const routerExpense = require("./expenseRoutes.js");
 
 router.use("/expenses", routerExpense);
 
