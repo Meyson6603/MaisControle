@@ -1,6 +1,6 @@
 const router = require("express").Router();
-const routerExpense = require("./expenseRoutes.js");
+const transactionRoutes = require("./transactionRoutes.js");
 
-router.use("/expenses", routerExpense);
+router.use("/transactions", transactionRoutes);
 
 module.exports = router;
