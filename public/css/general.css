@@ -1,9 +1,17 @@
+/* --------- GERAL --------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
 body {
+  font-size: 1rem;
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
   background-color: #f0f0f0;
-  padding-top: 62px; /* Altura do cabeçalho */
+  padding-top: 62px;
 }
 
 button {
@@ -13,7 +21,16 @@ button {
   padding: 0;
 }
 
-/* Cabeçalho */
+/* --------- CONTAINER PRINCIPAL --------- */
+.main-container {
+  font-size: 1rem;
+  width: 100%;
+  max-width: 1240px;
+  margin: 0 auto;
+  padding: 1rem;
+}
+
+/* --------- CABEÇALHO --------- */
 .header {
   position: fixed;
   top: 0;
@@ -72,17 +89,49 @@ button {
   height: 24px;
 }
 
-/* Box principal */
+/* Estilo para o link ativo no menu */
+.header__link.active {
+  color: #08c087;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+/* Estilo inicial do botão "Simulador" */
+.header__simulator {
+  background-color: #08c087;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-decoration: none;
+  border: none;
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease;
+}
+
+/* Inversão de cores no hover */
+.header__simulator:hover {
+  background-color: #fff;
+  color: #08c087;
+  border: 1px solid #08c087;
+}
+
+/* Garante que o estado ativo (selecionado) do botão seja visível */
+.header__simulator.active {
+  background-color: #fff;
+  color: #08c087;
+  border: 1px solid #08c087;
+}
+
+/* --------- BOX PRINCIPAL --------- */
 .box {
-  width: 90%;
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
   max-width: 1240px;
   margin: 20px auto;
   background-color: #fff;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  display: flex;
   border-radius: 8px;
   padding: 20px;
-  position: relative;
 }
 
 .box__calendar {
@@ -96,13 +145,14 @@ button {
   left: 50%;
   top: 0;
   width: 1px;
-  height: 100%;
+  height: auto;
   background-color: #ccc;
   transform: translateX(-50%);
+  z-index: 1;
 }
 
 .box__left-section {
-  flex: 1;
+  flex: 1 1 40%;
   display: flex;
   flex-direction: column;
   gap: 20px;
@@ -164,7 +214,7 @@ button {
 }
 
 .box__right-section {
-  flex: 1;
+  flex: 1 1 40%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -189,15 +239,14 @@ button {
   object-fit: contain;
 }
 
-/* Cards */
+/* --------- CARDS --------- */
 .cards-container {
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  gap: 60px;
-  width: 80%;
-  max-width: 1240px;
-  margin: 20px auto;
+  gap: 2rem;
+  width: 100%;
+  flex-wrap: wrap;
 }
 
 .cards--left,
@@ -205,17 +254,16 @@ button {
   display: flex;
   flex-direction: column;
   gap: 40px;
-  flex: 1;
+  flex: 1 1 48%;
 }
 
 .card {
   width: 100%;
   background-color: #f9f9f9;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  padding: 20px;
-  position: relative;
-  min-height: 120px;
+  border-radius: 0.5rem;
+  box-shadow: 0 0.25rem 0.375rem rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  min-height: 7.5rem;
 }
 
 .card__data {
@@ -247,7 +295,40 @@ button {
   gap: 20px;
 }
 
-/* Responsividade */
+/* --------- MENU DE CONFIGURAÇÕES --------- */
+.settings-menu {
+  position: absolute;
+  top: 50px;
+  right: 20px;
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: 200px;
+}
+
+.settings-menu__list {
+  list-style: none;
+  margin: 0;
+  padding: 10px 0;
+}
+
+.settings-menu__item {
+  display: block;
+  padding: 10px 20px;
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+.settings-menu__item:hover {
+  background-color: #f0f0f0;
+  color: #08c087;
+}
+
+/* --------- RESPONSIVIDADE --------- */
 @media (max-width: 768px) {
   .box {
     flex-direction: column;
@@ -285,70 +366,4 @@ button {
   .card {
     width: 90%;
   }
-}
-
-/* Estilo para o link ativo no menu */
-.header__link.active {
-  color: #08c087; /* Cor do texto para o link ativo */
-  font-weight: bold; /* Opcional: destaque adicional */
-  text-decoration: underline; /* Opcional: sublinhado para indicar seleção */
-}
-
-/* Estilo inicial do botão "Simulador" */
-.header__simulator {
-  background-color: #08c087; /* Cor de fundo inicial */
-  color: #fff; /* Cor do texto inicial */
-  padding: 10px 20px; /* Espaçamento interno */
-  border-radius: 5px; /* Bordas arredondadas */
-  text-decoration: none; /* Remove o sublinhado */
-  border: none; /* Remove borda inicial */
-  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease; /* Transição suave */
-}
-
-/* Inversão de cores no hover */
-.header__simulator:hover {
-  background-color: #fff; /* Cor de fundo ao passar o mouse */
-  color: #08c087; /* Cor do texto ao passar o mouse */
-  border: 1px solid #08c087; /* Adiciona uma borda para destacar */
-}
-
-/* Garante que o estado ativo (selecionado) do botão seja visível */
-.header__simulator.active {
-  background-color: #fff; /* Fundo branco para o estado ativo */
-  color: #08c087; /* Texto verde para o estado ativo */
-  border: 1px solid #08c087; /* Borda verde para o estado ativo */
-}
-
-/* Estilo do menu de configurações */
-/* Estilo do menu de configurações */
-.settings-menu {
-  position: absolute;
-  top: 50px; /* Ajuste para posicionar abaixo da engrenagem */
-  right: 20px; /* Alinha à direita */
-  background-color: #fff;
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-  z-index: 1000;
-  width: 200px;
-}
-
-.settings-menu__list {
-  list-style: none;
-  margin: 0;
-  padding: 10px 0;
-}
-
-.settings-menu__item {
-  display: block;
-  padding: 10px 20px;
-  color: #333;
-  text-decoration: none;
-  font-size: 14px;
-  transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave */
-}
-
-.settings-menu__item:hover {
-  background-color: #f0f0f0; /* Fundo claro ao passar o mouse */
-  color: #08c087; /* Cor do texto ao passar o mouse */
 }
