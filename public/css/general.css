@@ -63,7 +63,7 @@ button {
   align-items: center;
 }
 
-.header__actions button {
+.header__actions a {
   margin-left: 10px;
 }
 
@@ -285,4 +285,70 @@ button {
   .card {
     width: 90%;
   }
+}
+
+/* Estilo para o link ativo no menu */
+.header__link.active {
+  color: #08c087; /* Cor do texto para o link ativo */
+  font-weight: bold; /* Opcional: destaque adicional */
+  text-decoration: underline; /* Opcional: sublinhado para indicar seleção */
+}
+
+/* Estilo inicial do botão "Simulador" */
+.header__simulator {
+  background-color: #08c087; /* Cor de fundo inicial */
+  color: #fff; /* Cor do texto inicial */
+  padding: 10px 20px; /* Espaçamento interno */
+  border-radius: 5px; /* Bordas arredondadas */
+  text-decoration: none; /* Remove o sublinhado */
+  border: none; /* Remove borda inicial */
+  transition: background-color 0.3s ease, color 0.3s ease, border 0.3s ease; /* Transição suave */
+}
+
+/* Inversão de cores no hover */
+.header__simulator:hover {
+  background-color: #fff; /* Cor de fundo ao passar o mouse */
+  color: #08c087; /* Cor do texto ao passar o mouse */
+  border: 1px solid #08c087; /* Adiciona uma borda para destacar */
+}
+
+/* Garante que o estado ativo (selecionado) do botão seja visível */
+.header__simulator.active {
+  background-color: #fff; /* Fundo branco para o estado ativo */
+  color: #08c087; /* Texto verde para o estado ativo */
+  border: 1px solid #08c087; /* Borda verde para o estado ativo */
+}
+
+/* Estilo do menu de configurações */
+/* Estilo do menu de configurações */
+.settings-menu {
+  position: absolute;
+  top: 50px; /* Ajuste para posicionar abaixo da engrenagem */
+  right: 20px; /* Alinha à direita */
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 1000;
+  width: 200px;
+}
+
+.settings-menu__list {
+  list-style: none;
+  margin: 0;
+  padding: 10px 0;
+}
+
+.settings-menu__item {
+  display: block;
+  padding: 10px 20px;
+  color: #333;
+  text-decoration: none;
+  font-size: 14px;
+  transition: background-color 0.3s ease, color 0.3s ease; /* Transição suave */
+}
+
+.settings-menu__item:hover {
+  background-color: #f0f0f0; /* Fundo claro ao passar o mouse */
+  color: #08c087; /* Cor do texto ao passar o mouse */
 }
