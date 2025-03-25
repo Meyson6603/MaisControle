@@ -1,0 +1,288 @@
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background-color: #f0f0f0;
+  padding-top: 62px; /* Altura do cabeçalho */
+}
+
+button {
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 0;
+}
+
+/* Cabeçalho */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 62px;
+  background-color: #333333;
+  color: #fff;
+  padding: 10px 0;
+  z-index: 1000;
+}
+
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+}
+
+.header__logo {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+.header__menu {
+  display: flex;
+  align-items: center;
+}
+
+.header__menu a {
+  color: #fff;
+  text-decoration: none;
+  margin: 0 10px;
+}
+
+.header__simulator {
+  background-color: #08c087;
+  color: #fff;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.header__actions {
+  display: flex;
+  align-items: center;
+}
+
+.header__actions button {
+  margin-left: 10px;
+}
+
+.header__icon {
+  width: 24px;
+  height: 24px;
+}
+
+/* Box principal */
+.box {
+  width: 90%;
+  max-width: 1240px;
+  margin: 20px auto;
+  background-color: #fff;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  display: flex;
+  border-radius: 8px;
+  padding: 20px;
+  position: relative;
+}
+
+.box__calendar {
+  height: 60px;
+  width: 60px;
+  object-fit: contain;
+}
+
+.box__line {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 1px;
+  height: 100%;
+  background-color: #ccc;
+  transform: translateX(-50%);
+}
+
+.box__left-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding-left: 80px;
+}
+
+.box__label {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.box__greeting {
+  font-size: 24px;
+  color: #262626;
+  line-height: 1.5;
+}
+
+.box__weather {
+  height: 60px;
+  width: 60px;
+  object-fit: contain;
+}
+
+.box__info {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.box__group,
+.box__group-secondary {
+  display: flex;
+  flex-direction: column;
+}
+
+.box__text,
+.box__text-secondary {
+  font-size: 16px;
+  color: #262626;
+}
+
+.box__income {
+  font-size: 20px;
+  font-weight: bold;
+  color: green;
+}
+
+.box__expense {
+  font-size: 20px;
+  font-weight: bold;
+  color: red;
+}
+
+.box__divider {
+  width: 1px;
+  height: 50px;
+  background-color: #ccc;
+}
+
+.box__right-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+}
+
+.box__quick-access {
+  text-align: center;
+  font-weight: 700;
+  font-size: 18px;
+}
+
+.box__icons {
+  display: flex;
+  justify-content: space-around;
+  gap: 20px;
+}
+
+.box__icons img {
+  height: 100px;
+  width: 100px;
+  object-fit: contain;
+}
+
+/* Cards */
+.cards-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 60px;
+  width: 80%;
+  max-width: 1240px;
+  margin: 20px auto;
+}
+
+.cards--left,
+.cards--right {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  flex: 1;
+}
+
+.card {
+  width: 100%;
+  background-color: #f9f9f9;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  padding: 20px;
+  position: relative;
+  min-height: 120px;
+}
+
+.card__data {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+
+.card__text {
+  font-size: 18px;
+  font-weight: 700;
+  color: #262626;
+}
+
+.card__value {
+  font-size: 24px;
+  font-weight: 400;
+  color: #262626;
+}
+
+.card__currency {
+  font-weight: 700;
+}
+
+.cards__images {
+  display: flex;
+  justify-content: space-evenly;
+  gap: 20px;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+  .box {
+    flex-direction: column;
+    align-items: center;
+    padding: 10px;
+  }
+
+  .box__line {
+    display: none;
+  }
+
+  .box__left-section {
+    padding-left: 0;
+  }
+
+  .box__info {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .box__divider {
+    display: none;
+  }
+
+  .cards-container {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .cards--left,
+  .cards--right {
+    width: 100%;
+  }
+
+  .card {
+    width: 90%;
+  }
+}
