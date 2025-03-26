@@ -1,4 +1,4 @@
-const data = require("./src/config/config.js");
+const { data } = require("./src/config");
 const express = require("express");
 const path = require("path");
 const routes = require("./src/routers");
