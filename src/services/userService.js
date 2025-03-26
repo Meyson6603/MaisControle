@@ -1,11 +1,14 @@
 const UserRepository = require('../repositories/userRepository');
 const AppError = require('../utils/AppError');
+const bcrypt = require('bcrypt');
+
 
 const createUser = async (user) => {
 	const { name, email, password } = user;
   	if (!name || !email || !password) {
     	throw new AppError('name, email and password are required', 400);
   	}
+    user.password = await bcrypt.hash(password, 10);
   	return UserRepository.createUser(user);
 }
 
@@ -32,6 +35,7 @@ const updateUser = async (id, user) => {
   	if (!name || !email || !password) {
     	throw new AppError('name, email and password are required', 400);
   	}
+    user.password = await bcrypt.hash(password, 10);
     return UserRepository.updateUser(id, user);
 }
 
