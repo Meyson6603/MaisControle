@@ -6,6 +6,6 @@ const authenticationRoutes = require("./authenticationRoutes.js");;
 
 // router.use("/transactions", transactionRoutes);
 router.use('/users', userRoutes);
-router.post('/auth', authenticaController);
+router.use('/auth', authenticationRoutes);
 
 module.exports = router;

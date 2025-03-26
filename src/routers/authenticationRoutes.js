@@ -7,4 +7,4 @@ const {
 
 router.post("/login", login);
 
-exports.default = router;
+module.exports = router;
