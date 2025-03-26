@@ -1,5 +1,3 @@
-const { db } = require('.');
-
 const Pool = require('pg').Pool;
 
 const pool = new Pool({
