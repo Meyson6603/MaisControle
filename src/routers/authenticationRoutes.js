@@ -2,9 +2,9 @@ const express = require("express");
 const router = express.Router();
 
 const {
-    authenticaController,
+    login
 } = require("../controllers/authController.js");
 
-router.post("/login", authenticaController);
+router.post("/login", login);
 
 exports.default = router;
