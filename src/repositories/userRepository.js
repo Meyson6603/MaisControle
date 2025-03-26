@@ -34,6 +34,23 @@ const deleteUser = async (id) => {
     return response.rows[0];
 }
 
+const findByQuery = async(params) => {
+    const queryConditions = [];
+    const queryValues = [];
+    let queryString = 'SELECT id, name, email FROM users';
+
+    Object.entries(params).forEach(([key, value], index) => {
+        queryConditions.push(`${key} ILIKE $${index + 1}`); 
+        queryValues.push(`%${value}%`);
+    });
+
+    if (queryConditions.length) {
+        queryString += ` WHERE ${queryConditions.join(' AND ')}`;
+    }
+
+    const response = await db.query(queryString, queryValues);
+    return response.rows;
+}
 
 module.exports = {
     createUser,
@@ -41,4 +58,5 @@ module.exports = {
     getUser,
     updateUser,
     deleteUser,
+    findByQuery
 };
