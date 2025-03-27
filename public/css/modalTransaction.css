@@ -1,284 +1,316 @@
 /* Modal container: covers the entire viewport and centers its content */
 
 * {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 .modal {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(0, 0, 0, 0.5);
-    z-index: 1000;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-family: Arial, sans-serif;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1000;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: Arial, sans-serif;
 }
 
 /* Class to display the modal */
 .modal.show {
-    display: flex;
+  display: flex;
 }
 
 /* Modal dialog: the popup box style */
 .modal__dialog {
-    background-color: #fff;
-    border-radius: 15px;
-    padding: 25px;
-    width: 90%;
-    max-width: 300px;
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
-    animation: modalFadeIn 0.3s ease-out;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: wrap;
+  background-color: #fff;
+  border-radius: 15px;
+  padding: 25px;
+  width: 90%;
+  max-width: 350px;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+  animation: modalFadeIn 0.3s ease-out;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
 }
 
 /* Modal header: contains the title and close button */
 .modal__header {
-    padding-bottom: 10px;
-    margin-bottom: 15px;
-    display: flex;
-    justify-content: space-between;
-    width: 100%;
+  padding-bottom: 10px;
+  margin-bottom: 15px;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
 }
 
 /* Close button style in the modal header */
 .modal__close {
-    font-size: 1rem;
-    background-color: transparent;
-    color: #333;
-    border: none;
-    cursor: pointer;
+  font-size: 1rem;
+  background-color: transparent;
+  color: #333;
+  border: none;
+  cursor: pointer;
 }
 
 /* Modal title style */
 .modal__title {
-    font-size: 1.2rem;
-    margin: 0;
-    color: #333;
+  font-size: 1.2rem;
+  margin: 0;
+  color: #333;
 }
 
 /* Modal body: container for the main content */
 .modal__body {
-    margin-bottom: 15px;
+  margin-bottom: 15px;
 }
 
 /* Form container within the modal */
 .modal__form {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 5px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 5px;
 }
 
 /* Field container: for label and input pairing */
 .modal__field {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .modal__field.hidden {
-    display:none;
+  display: none;
 }
 
 /* Label style for form fields */
 .modal__label {
-    margin-bottom: 5px;
-    font-weight: 500;
-    color: #555;
-    font-size: 0.75rem;
+  margin-bottom: 5px;
+  font-weight: 500;
+  color: #555;
+  font-size: 0.75rem;
 }
 
 /* Input field style */
 .modal__input {
-    padding: 4px 5px;
-    border: 1.5px solid #dfdede;
-    font-size: 0.75rem;
-    color:#262626;
-    width:120px;
+  padding: 4px 5px;
+  border: 1.5px solid #dfdede;
+  font-size: 0.75rem;
+  color: #262626;
+  width: 120px;
 }
 
 /* Select field style */
 .modal__select {
-    padding: 4px 5px;
-    border: 1.5px solid #dfdede;
-    font-size: 0.75rem;
-    color:#262626;
-    width:120px;
+  padding: 4px 5px;
+  border: 1.5px solid #dfdede;
+  font-size: 0.75rem;
+  color: #262626;
+  width: 120px;
 }
 
 /* Option style inside select fields */
 .modal__option {
-    font-size: 0.75rem;
-    color:#262626;
+  font-size: 0.75rem;
+  color: #262626;
 }
 
 /* Modal footer: container for actions (buttons) */
 .modal__footer {
-    display:block;
-    position:relative;
-    left:15%;
-    width:125px;
-    /* border:1px solid red; */
+  display: block;
+  position: relative;
+  left: 15%;
+  width: 125px;
+  /* border:1px solid red; */
 }
 
 /* Button style for modal actions */
 .modal__button {
-    margin-left: 5px;
-    background-color: #ffffff;
-    border: none;
-    cursor: pointer;
-    transition: opacity 0.2s;
+  margin-left: 5px;
+  background-color: #ffffff;
+  border: none;
+  cursor: pointer;
+  transition: opacity 0.2s;
 }
 
 /* Style for input group */
 .modal__input-group {
-    display: flex;
-    align-items: center;
-    border: 1.5px solid #dfdede;
-    padding: 4px;
-    width:120px;
+  display: flex;
+  align-items: center;
+  border: 1.5px solid #dfdede;
+  padding: 4px;
+  width: 120px;
 }
 
 /* Style for prefix */
 .modal__prefix {
-    margin-right: 5px;
-    color: #262626;
-    font-size: 0.75rem;
+  margin-right: 5px;
+  color: #262626;
+  font-size: 0.75rem;
 }
 
 /* Style for input inside the group */
 .modal__input-group .modal__input {
-    flex: 1;
-    border: none;
-    outline: none;
-    font-size: 0.75rem;
-    color: #262626;
-    padding: 0;
+  flex: 1;
+  border: none;
+  outline: none;
+  font-size: 0.75rem;
+  color: #262626;
+  padding: 0;
 }
 
-.modal__input:focus, .modal__select:focus {
-    outline: none;
+.modal__input:focus,
+.modal__select:focus {
+  outline: none;
 }
 
 /* Style for input when focused */
 .modal__input-group .modal__input:focus {
-    border: none;
-    outline: none;
-    box-shadow: none;
+  border: none;
+  outline: none;
+  box-shadow: none;
 }
 
 /* Cancel button style override */
 .modal__button--cancel {
-    background-color: #ffffff;
+  background-color: #ffffff;
 }
 
 /* Textarea style */
 .modal__textarea {
-    font-family: Arial, Helvetica, sans-serif;
-    width: 250px;
-    max-height:80px;
-    max-width: 250px;
-    min-width: 250px;
-    min-height:25px;
-    padding:4px;
-    color:#333;
-    outline: none;
-    border:1.5px solid #dfdede;
+  font-family: Arial, Helvetica, sans-serif;
+  width: 250px;
+  max-height: 80px;
+  max-width: 250px;
+  min-width: 250px;
+  min-height: 25px;
+  padding: 4px;
+  color: #333;
+  outline: none;
+  border: 1.5px solid #dfdede;
 }
 
 /* Radio button container style */
 .modal__radio {
-    display:flex;
-    justify-content: flex-start;
-    align-items: center;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
 }
 
 /* Radio button label style */
 .modal__radio-label {
-    margin-right: 5px;
-    font-size: 0.75rem;
-    color: #333;
+  margin-right: 5px;
+  font-size: 0.75rem;
+  color: #333;
 }
 
 /* Custom field style */
 .modal__field.modal__field--custom {
-    width: 250px;
-    margin-top: 20px; 
-    display:flex;
-    flex-direction: row;
-    align-items: center;
-    justify-content: center; 
-    align-self: center;
+  width: 250px;
+  margin-top: 20px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  align-self: center;
 }
 
 /* Custom button style */
-.modal__button.modal__button--custom{
-    display:flex;
-    align-items: center;
-    flex-direction: column;
+.modal__button.modal__button--custom {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
 }
 
 /* Custom button image style */
-.modal__button.modal__button--custom .modal__button-image{
-    width:40px;
-    height:40px;
-    display:flex;
-    justify-content: center;
-    align-items: center;
-    background-color: rgb(255, 255, 255);
-    border-radius: 50%;
-    border:1px solid #7f7f7f;
+.modal__button.modal__button--custom .modal__button-image {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(255, 255, 255);
+  border-radius: 50%;
+  border: 1px solid #7f7f7f;
 }
 
-.modal__button.modal__button--custom .modal__button-image.checked{
-    background-color: #6b6b6b;
-    border:1px solid #515151;
+.modal__button.modal__button--custom .modal__button-image.checked {
+  background-color: #6b6b6b;
+  border: 1px solid #515151;
 }
 
 /* Custom button text style */
-.modal__button.modal__button--custom .modal__button-text{
-    color:#4a4a4a;
+.modal__button.modal__button--custom .modal__button-text {
+  color: #4a4a4a;
 }
 
-.modal__field-group{
-    width: 250px;
-    margin-top:5px;
-    display:flex;
-    flex-direction: row;
-    gap:5px;
-    justify-content: space-between;
-    align-items: center;
+.modal__field-group {
+  width: 250px;
+  margin-top: 5px;
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* Input frequency alternative style */
-#input-frequency-alt{
-    width: 250px;
+#input-frequency-alt {
+  width: 250px;
 }
 
 /* Input data style */
 #input-data {
-    width: 250px;
+  width: 250px;
 }
 
 /* Input value style */
 #input-value {
-    width:90%;
+  width: 90%;
 }
 
 /* Fade in animation for modal dialog */
 @keyframes modalFadeIn {
-    from {
-        opacity: 0;
-        transform: translateY(-20px);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0);
-    }
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Estilo para organizar os radio buttons abaixo de SKU */
+.modal__radio-group {
+  display: flex;
+  flex-direction: row;
+  gap: 15px;
+  margin-top: 10px;
+  justify-content: flex-start;
+}
+
+.modal__radio-group label {
+  font-size: 0.9rem;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.modal__radio-group input[type="radio"] {
+  accent-color: #007bff;
+  cursor: pointer;
+}
+
+/* Estilo para o campo de Lucro/Custo */
+#modal__field-profit-cost {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+  margin-top: 10px;
 }
