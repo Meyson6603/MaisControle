@@ -1,23 +1,30 @@
 * {
+    margin: 0;
+    padding: 0;
     box-sizing: border-box;
+    font-family: Arial, sans-serif;
 }
 
+/* Estilos gerais */
 body {
-    font-family: Arial, sans-serif;
     display: flex;
-    flex-direction: column;
+    flex-direction: column; /* Organiza os elementos em coluna */
     height: 100vh;
     margin: 0;
     background-color: #f9f9f9; /* Cor de fundo unificada */
 }
 
+/* Header */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 100px;
+    padding: 15px 100px; /* Ajuste para melhor responsividade */
     background-color: #333;
     color: white;
+    width: 100%; /* Garante que o header ocupe toda a largura */
+    box-sizing: border-box; /* Inclui padding na largura total */
+    margin: 0; /* Remove qualquer margem externa */
 }
 
 .header__logo {
@@ -34,15 +41,20 @@ body {
     border-radius: 5px;
 }
 
+/* Container principal */
 .main-container {
     display: flex;
+    flex-direction: row; /* Organiza os elementos lado a lado */
     justify-content: center;
-    gap: 40px;
     align-items: center;
-    flex-grow: 1;
+    flex-grow: 1; /* Faz o container ocupar o espaço restante */
+    gap: 40px;
     padding: 20px;
+    width: 100%; /* Garante que o container ocupe toda a largura */
+    box-sizing: border-box;
 }
 
+/* Login Container */
 .login-container {
     background-color: #fff;
     width: 400px;
@@ -121,4 +133,43 @@ body {
     color: white;
     font-size: 22px;
     font-weight: bold;
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    .header {
+        flex-direction: column; /* Organiza os itens em coluna */
+        text-align: center;
+        padding: 10px; /* Reduz o padding para telas menores */
+    }
+
+    .main-container {
+        flex-direction: column; /* Empilha os elementos em telas menores */
+        gap: 20px;
+    }
+
+    .login-container {
+        width: 90%; /* Ajusta a largura do formulário */
+        padding: 20px; /* Reduz o padding interno */
+    }
+
+    .image-container {
+        width: 90%; /* Ajusta a largura da imagem */
+        height: auto; /* Permite que a altura seja ajustada automaticamente */
+    }
+}
+
+@media (max-width: 480px) {
+    .main-container {
+        padding: 10px;
+    }
+
+    .login-container,
+    .image-container {
+        width: 100%; /* Faz os elementos ocuparem toda a largura */
+    }
+
+    .login-container {
+        padding: 15px; /* Reduz ainda mais o padding interno */
+    }
 }
