@@ -1,8 +1,20 @@
+import { ProductModal } from "../components/ProductModal.js";
+
 document.addEventListener("DOMContentLoaded", () => {
   const links = document.querySelectorAll(".header__link");
   const sections = document.querySelectorAll(".content-section");
   const settingsButton = document.getElementById("settings-button");
   const settingsMenu = document.getElementById("settings-menu");
+
+  const addProductButton = document.getElementById("add-product-button");
+  if (addProductButton) {
+    addProductButton.addEventListener("click", () => {
+      const modal = ProductModal();
+      document.body.appendChild(modal);
+    });
+  } else {
+    console.error("Botão 'Adicionar Produto' não encontrado!");
+  }
 
   function hideAllSections() {
     sections.forEach((section) => {

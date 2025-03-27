@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/general.css">
+    <link rel="stylesheet" href="../css/modalTransaction.css">
     <title>Visão Geral - +Controle</title>
 </head>
 <body>
@@ -103,7 +104,7 @@
 
             <div class="cards cards--right">
                 <div class="cards__images">
-                    <button class="botao-svg"><img src="../image/svg/adicionarProduto.svg" alt=""></button>             
+                    <button class="botao-svg" id="add-product-button"><img src="../image/svg/adicionarProduto.svg" alt=""></button>             
                     <button class="botao-svg"> <img src="../image/svg/registrarVenda.svg" alt=""> </button>              
                 </div>
                 <div class="card">
@@ -119,6 +120,21 @@
         </div>
     </div>
 
-    <script type="module" src="../js/generalPages/generalConfig.js"></script>
+    <script type="module">
+        import { ProductModal } from '../js/components/ProductModal.js';
+      
+        document.addEventListener('DOMContentLoaded', () => {
+          const addProductButton = document.getElementById('add-product-button');
+      
+          if (addProductButton) {
+            addProductButton.addEventListener('click', () => {
+              const modal = ProductModal(); 
+              document.body.appendChild(modal); 
+            });
+          } else {
+            console.error("Botão 'Adicionar Produto' não encontrado!");
+          }
+        });
+      </script>
 </body>
 </html>
