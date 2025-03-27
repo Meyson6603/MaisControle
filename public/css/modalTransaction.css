@@ -253,7 +253,7 @@
     flex-direction: row;
     gap:5px;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
 }
 
 /* Input frequency alternative style */
