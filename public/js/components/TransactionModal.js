@@ -31,7 +31,7 @@ const TransactionModal = (expense = true) => {
                     <div class="modal__field">
                         <label class="modal__label" for="input-conta">Conta</label>
                         <select class="modal__select" id="input-conta" name="conta">
-                            <option class="modal__option" value="">Conta Inicial</option>
+                            <option class="modal__option" value="default">Conta Inicial</option>
                         </select>
                     </div>
                     <div class="modal__field">
@@ -290,6 +290,25 @@ const TransactionModal = (expense = true) => {
         }
 
         const data = new FormData(form);
+        for (const key of [...data.keys()]) {
+            let value = data.get(key);
+            if (typeof value === 'string') {
+            value = value.trim();
+            data.set(key, value);
+            }
+            // Para o campo de observação, remove se estiver vazio
+            if (!value && key === 'observation-content') {
+            data.delete(key);
+            }
+            // Se a repetição não estiver ativa, remove os campos de frequência e número, mesmo que tenham valor
+            if (!repetitionActive && ['number', 'frequency-installments', 'frequency-fixed'].includes(key)) {
+            data.delete(key);
+            }
+        }
+
+        data.set('expense', JSON.stringify(expense));
+
+        // Converter FormData para um objeto para envio à API
         const dataObj = Object.fromEntries(data.entries());
         console.log(dataObj);
     });
