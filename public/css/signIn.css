@@ -5,22 +5,28 @@
     font-family: Arial, sans-serif;
 }
 
-html, body {
-    height: 100%;
-    overflow: hidden; /* Remove a barra de rolagem */
-}
-
+/* Ajuste no layout geral */
 body {
-    background-color: #f9f9f9; /* Cor de fundo unificada */
+    display: flex;
+    flex-direction: column; /* Organiza os elementos em coluna */
+    margin: 0;
+    height: 100vh;
+    padding: 0;
+    background-color: #f9f9f9;
 }
 
+/* Header */
 .header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 15px 100px;
+    padding: 15px 100px; /* Espaçamento interno */
     background-color: #333;
     color: white;
+    width: 100%; /* Garante que o header ocupe toda a largura */
+    box-sizing: border-box; /* Inclui padding na largura total */
+    margin: 0; /* Remove qualquer margem externa */
+    position: relative; /* Garante que o header não seja fixo ou absoluto */
 }
 
 .header__logo {
@@ -37,14 +43,18 @@ body {
     border-radius: 5px;
 }
 
+/* Container principal */
 .container {
     display: flex;
+    flex-direction: row; /* Organiza os elementos lado a lado */
     justify-content: center;
     align-items: center;
-    height: calc(100vh - 60px);
+    flex-grow: 1; /* Faz o container ocupar o espaço restante */
     gap: 40px;
     padding: 20px;
     overflow: auto; /* Permite rolagem interna, se necessário */
+    width: 100%; /* Garante que o container ocupe toda a largura */
+    box-sizing: border-box;
 }
 
 .form-section {
@@ -60,6 +70,7 @@ body {
     font-size: 22px;
     font-weight: bold;
     margin-bottom: 20px;
+    color: #414141;
 }
 
 .form {
@@ -117,4 +128,64 @@ body {
     color: white;
     font-size: 22px;
     font-weight: bold;
+}
+
+.form-container {
+    width: 450px;
+    padding: 25px;
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+/* Responsividade */
+@media (max-width: 768px) {
+    body {
+        height: 150vh;
+    }
+    .form-container {
+        width: 90%;
+        padding: 20px;
+    }
+
+    .container {
+        flex-direction: column; /* Empilha os elementos em telas menores */
+        gap: 20px;
+    }
+
+    .header {
+        flex-direction: column; /* Organiza os itens em coluna */
+        text-align: center;
+        padding: 10px; /* Reduz o padding para telas menores */
+        margin: 0; /* Remove qualquer margem externa */
+        position: relative; /* Garante que o header não seja fixo */
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        flex-direction: column;
+    }
+
+    .form-container {
+        width: 100%;
+        padding: 15px;
+    }
+
+    .header {
+        position: relative; /* Remove qualquer comportamento fixo */
+        flex-direction: column; /* Organiza os itens em coluna */
+        text-align: center;
+        padding: 10px; /* Ajusta o padding */
+        margin: 0; /* Remove margens externas */
+    }
+
+    .container {
+        padding: 10px;
+    }
+
+    .form-section,
+    .image-section {
+        width: 100%; /* Faz os elementos ocuparem toda a largura */
+    }
 }
