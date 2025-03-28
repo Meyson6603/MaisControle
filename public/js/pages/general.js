@@ -1,17 +1,6 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/general.css">
-    <link rel="stylesheet" href="../css/modalTransaction.css">
-    <title>Visão Geral - +Controle</title>
-</head>
-
-<body>
-    <div class="main-container">
+export default function general() {
+    const body = document.querySelector("body");
+    body.innerHTML = `<div class="main-container">
         <header class="header">
             <div class="header__container">
                 <h1 class="header__logo">+ Controle</h1>
@@ -122,24 +111,5 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <script type="module">
-        import { ProductModal } from '../js/components/ProductModal.js';
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const addProductButton = document.getElementById('add-product-button');
-
-            if (addProductButton) {
-                addProductButton.addEventListener('click', () => {
-                    const modal = ProductModal();
-                    document.body.appendChild(modal);
-                });
-            } else {
-                console.error("Botão 'Adicionar Produto' não encontrado!");
-            }
-        });
-    </script>
-</body>
-
-</html>
+    </div>`
+}
