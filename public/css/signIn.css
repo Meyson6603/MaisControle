@@ -27,6 +27,7 @@ body {
     box-sizing: border-box; /* Inclui padding na largura total */
     margin: 0; /* Remove qualquer margem externa */
     position: relative; /* Garante que o header não seja fixo ou absoluto */
+    height: 61px;
 }
 
 .header__logo {
