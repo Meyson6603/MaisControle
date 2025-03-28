@@ -1,7 +1,4 @@
-const { db } = require('./db.js');
-const data = require('./dotenv.js');
+const db = require('./db');
+const env = require('./env');
 
-module.exports = {
-    db,
-    data
-};
+module.exports = { db, env };
