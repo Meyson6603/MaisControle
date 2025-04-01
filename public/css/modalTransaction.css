@@ -247,7 +247,6 @@
   color: #4a4a4a;
 }
 
-
 .modal__field-group {
   width: 250px;
   margin-top: 5px;
@@ -314,4 +313,14 @@
   align-items: center;
   gap: 10px;
   margin-top: 10px;
+}
+
+/* Cor para valores negativos */
+.negative-value {
+  color: red;
+}
+
+/* Cor para valores positivos */
+.positive-value {
+  color: green;
 }
