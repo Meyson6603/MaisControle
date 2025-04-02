@@ -1,9 +1,9 @@
-import home from "./pages/home.js";
+import landingPage from "./pages/landingPage.js";
 import login from "./pages/login.js";
 // import signin from "./pages/signIn.js";
-import singIn from "./pages/teste.js";
+import singIn from "./pages/singIn.js";
 import user from "./pages/user.js";
-import general from "./pages/general.js";
+import home from "./pages/home.js";
 
 window.addEventListener("load", () => {
 
@@ -11,16 +11,16 @@ window.addEventListener("load", () => {
     const body = document.querySelector("body");
 
     if (path === "/") {
-        home();
-        console.log(path);
-    } else if (path === "/login") {
+        landingPage();
+    }
+    else if (path === "/login") {
         login();
     } else if (path === "/signIn") {
         singIn();
     } else if (path === "/user") {
         user();
     } else if (path === "/general") {
-        general();
+        home();
     }
 
     else {
@@ -31,7 +31,7 @@ window.addEventListener("load", () => {
 window.addEventListener('popstate', () => {
     const path = window.location.pathname;
     if (path === "/") {
-        home();
+        landingPage();
     }
     else if (path === "/login") {
         login();
@@ -40,7 +40,7 @@ window.addEventListener('popstate', () => {
     } else if (path === "/user") {
         user();
     } else if (path === "/general") {
-        general();
+        home();
     }
     else {
         document.querySelector("body").innerHTML = "<h1>Página não encontrada</h1>";
