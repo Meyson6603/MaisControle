@@ -1,5 +1,5 @@
-import home from "./home.js";
-import signIn from "./teste.js";
+import landingPage from "./landingPage.js";
+import signIn from "./singIn.js";
 
 export default function Login() {
     const body = document.querySelector("body");
@@ -68,7 +68,7 @@ export default function Login() {
 
     btnHome.addEventListener("click", () => {
         history.pushState({}, "", "/");
-        home();
+        landingPage();
     })
 
     const btnSignup = document.getElementById("btnSignup");

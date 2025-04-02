@@ -1,4 +1,4 @@
-export default function general() {
+export default function home() {
     const body = document.querySelector("body");
     body.innerHTML = `<div class="main-container-general">
         <header class="header">
