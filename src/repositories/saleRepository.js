@@ -69,10 +69,30 @@ const deleteSale = async (id) => {
   return response.rows[0];
 };
 
+const getFaturasMesAtual = async () => {
+  const currentDate = new Date();
+  const startOfMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth(),
+    1
+  );
+  const endOfMonth = new Date(
+    currentDate.getFullYear(),
+    currentDate.getMonth() + 1,
+    0
+  );
+  const response = await db.query(
+    "SELECT * FROM sales WHERE created_at >= $1 AND created_at <= $2",
+    [startOfMonth.toISOString(), endOfMonth.toISOString()]
+  );
+
+  return response.rows;
+};
 module.exports = {
   createSale,
   getSaleById,
   listSales,
   updateSale,
   deleteSale,
+  getFaturasMesAtual,
 };
