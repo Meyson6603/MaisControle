@@ -37,8 +37,27 @@ export default function Login() {
         const emailValue = email.value;
         const passwordValue = password.value;
 
+        // Seleciona ou cria o elemento para exibir mensagens
+        let messageBox = document.getElementById("message-box");
+        if (!messageBox) {
+            messageBox = document.createElement("div");
+            messageBox.id = "message-box";
+            messageBox.style.marginTop = "10px";
+            messageBox.style.padding = "10px";
+            messageBox.style.borderRadius = "5px";
+            messageBox.style.textAlign = "center";
+            login.insertAdjacentElement("beforebegin", messageBox);
+        }
+
+        // Limpa mensagens anteriores
+        messageBox.textContent = "";
+        messageBox.style.display = "none";
+
         if (emailValue === "" || passwordValue === "") {
-            alert("Preencha todos os campos!");
+            messageBox.textContent = "Preencha todos os campos!";
+            messageBox.style.color = "red";
+            messageBox.style.backgroundColor = "#ffe5e5";
+            messageBox.style.display = "block";
             return;
         }
 
@@ -49,17 +68,33 @@ export default function Login() {
             const response = await fetch("/login", {
                 method: "POST",
                 headers: {
-                    "Content-Type": "application/json"
+                    "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
                     email: emailValue,
-                    password: passwordValue
-                })
+                    password: passwordValue,
+                }),
             });
 
-            console.log(response);
+            if (response.ok) {
+                messageBox.textContent = "Login realizado com sucesso!";
+                messageBox.style.color = "green";
+                messageBox.style.backgroundColor = "#e5ffe5";
+                messageBox.style.display = "block";
+                history.pushState({}, "", "/general");
+                // Aqui você pode chamar a função que carrega a página pós-login
+            } else {
+                messageBox.textContent = "Erro ao realizar login. Verifique suas credenciais.";
+                messageBox.style.color = "red";
+                messageBox.style.backgroundColor = "#ffe5e5";
+                messageBox.style.display = "block";
+            }
         } catch (error) {
-
+            console.error("Erro ao realizar login:", error);
+            messageBox.textContent = "Erro ao realizar login. Tente novamente mais tarde.";
+            messageBox.style.color = "red";
+            messageBox.style.backgroundColor = "#ffe5e5";
+            messageBox.style.display = "block";
         }
     })
 
