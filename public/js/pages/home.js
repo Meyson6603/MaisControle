@@ -1,6 +1,6 @@
-export default function general() {
+export default function home() {
     const body = document.querySelector("body");
-    body.innerHTML = `<div class="main-container">
+    body.innerHTML = `<div class="main-container-general">
         <header class="header">
             <div class="header__container">
                 <h1 class="header__logo">+ Controle</h1>
@@ -12,10 +12,10 @@ export default function general() {
                     <a href="#" class="header__link header__simulator" data-target="simulator">Simulador</a>
                 </nav>
                 <div class="header__actions">
-                    <a href="#" id="settings-button"><img src="/public/image/settings.svg" alt="Configurações"
+                    <a href="#" id="settings-button"><img src="../../image/settings.svg" alt="Configurações"
                             class="header__icon"></a>
-                    <a href="#"><img src="/public/image/notification.svg" alt="Notificações" class="header__icon"></a>
-                    <a href="./login.html"><img src="/public/image/exit.svg" alt="Sair" class="header__icon"></a>
+                    <a href="#"><img src="../../image/notification.svg" alt="Notificações" class="header__icon"></a>
+                    <a href="/login"><img src="../../image/exit.svg" alt="Sair" class="header__icon"></a>
 
                     <div id="settings-menu" class="settings-menu" style="display: none;">
                         <ul class="settings-menu__list">
@@ -30,7 +30,7 @@ export default function general() {
         </header>
 
         <div class="box">
-            <img class="box__calendar" src="/public/image/calendar.svg" alt="Calendário">
+            <img class="box__calendar" src="../../image/calendar.svg" alt="Calendário">
             <div class="box__line"></div>
             <div class="box__left-section">
                 <div class="box__label">
@@ -39,7 +39,7 @@ export default function general() {
                         <span class="box__span">,<br /></span>
                         <span class="box__text-secondary">Fulano!</span>
                     </p>
-                    <img class="box__weather" src="/public/image/nebuloso.svg" alt="Nebuloso">
+                    <img class="box__weather" src="../../image/nebuloso.svg" alt="Nebuloso">
                 </div>
                 <div class="box__info">
                     <div class="box__group">
@@ -56,9 +56,9 @@ export default function general() {
             <div class="box__right-section">
                 <div class="box__quick-access">Acesso rápido</div>
                 <div class="box__icons">
-                    <button><img src="/public/image/despesa.png" alt="Despesa"></button>
-                    <button><img src="/public/image/receita.png" alt="Receita"></button>
-                    <button><img src="/public/image/relatorio.png" alt="Relatório"></button>
+                    <button><img src="../../image/despesa.png" alt="Despesa"></button>
+                    <button><img src="../../image/receita.png" alt="Receita"></button>
+                    <button><img src="../../image/relatorio.png" alt="Relatório"></button>
                 </div>
             </div>
         </div>
@@ -96,8 +96,8 @@ export default function general() {
 
             <div class="cards cards--right">
                 <div class="cards__images">
-                    <button class="botao-svg" id="add-product-button"><img src="../image/svg/adicionarProduto.svg"
-                            alt=""></button>
+                    <button class="botao-svg" id="add-product-button"><img
+                            src="../../image/svg/adicionarProduto.svg" alt=""></button>
                     <button class="botao-svg"> <img src="../image/svg/registrarVenda.svg" alt=""> </button>
                 </div>
                 <div class="card">
