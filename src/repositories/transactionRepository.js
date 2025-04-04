@@ -46,34 +46,37 @@ const deleteTransaction = async (id) => {
   return response.rows[0];
 };
 
-const getReceitaMensal = async () => {
+//Calcula a soma total das receitas (entradas de dinheiro) no mês atual.
+const getMonthlyRevenue = async () => {
   const response = await db.query(
-    `SELECT SUM(value) AS receita_mensal
-     FROM transactions  -- Alterado para o nome correto da tabela
+    `SELECT SUM(value) AS monthly_revenue
+     FROM transactions
      WHERE action = 'income'
      AND EXTRACT(MONTH FROM created_at) = EXTRACT(MONTH FROM CURRENT_DATE)
      AND EXTRACT(YEAR FROM created_at) = EXTRACT(YEAR FROM CURRENT_DATE)`
   );
-  return response.rows[0]?.receita_mensal || 0;
+  return response.rows[0]?.monthly_revenue || 0;
 };
 
-const getDespesaMensal = async () => {
+//Calcula a soma total das despesas (saídas de dinheiro) no mês atual.
+const getMonthlyExpenses = async () => {
   const response = await db.query(
-    `SELECT SUM(value) AS despesa_mensal
+    `SELECT SUM(value) AS monthly_expenses
      FROM transactions
      WHERE action = 'expense'
      AND EXTRACT(MONTH FROM created_at) = EXTRACT(MONTH FROM CURRENT_DATE)
      AND EXTRACT(YEAR FROM created_at) = EXTRACT(YEAR FROM CURRENT_DATE)`
   );
-  return response.rows[0]?.despesa_mensal || 0;
+  return response.rows[0]?.monthly_expenses || 0;
 };
 
-const getSaldoGeral = async () => {
-  const receita = await getReceitaMensal();
-  const despesa = await getDespesaMensal();
-  const saldoGeral = receita - despesa;
+//Chama as funções getMonthlyRevenue() e getMonthlyExpenses() para obter os valores de receitas e despesas do mês. Calcula o saldo geral, subtraindo despesas de receitas.
+const getOverallBalance = async () => {
+  const revenue = await getMonthlyRevenue();
+  const expenses = await getMonthlyExpenses();
+  const overallBalance = revenue - expenses;
 
-  return saldoGeral;
+  return overallBalance;
 };
 
 module.exports = {
@@ -82,7 +85,7 @@ module.exports = {
   listTransactions,
   updateTransaction,
   deleteTransaction,
-  getReceitaMensal,
-  getDespesaMensal,
-  getSaldoGeral,
+  getMonthlyRevenue,
+  getMonthlyExpenses,
+  getOverallBalance,
 };
