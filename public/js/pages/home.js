@@ -1,3 +1,5 @@
+import renderUserModal from "../components/userModal.js";
+
 export default function home() {
     const body = document.querySelector("body");
     body.innerHTML = `<div class="main-container-general">
@@ -112,4 +114,14 @@ export default function home() {
             </div>
         </div>
     </div>`
+
+    // Renderiza o modal
+    const userModal = renderUserModal();
+
+    // Adiciona evento ao botão de configurações
+    const settingsButton = document.getElementById("settings-button");
+    settingsButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        userModal.open(); // Abre o modal ao clicar no botão
+    });
 }
