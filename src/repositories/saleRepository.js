@@ -10,6 +10,7 @@ const createSale = async (sale) => {
     customerName,
     customerContact,
   } = sale;
+
   const response = await db.query(
     "INSERT INTO sales (user_id, total, status, sale_type, installments, customer_name, customer_contact, created_at, updated_at) VALUES ($1, $2, $3, $4, $5, $6, $7, NOW(), NOW()) RETURNING *",
     [
@@ -45,6 +46,7 @@ const updateSale = async (id, sale) => {
     customerName,
     customerContact,
   } = sale;
+
   const response = await db.query(
     "UPDATE sales SET user_id = $1, total = $2, status = $3, sale_type = $4, installments = $5, customer_name = $6, customer_contact = $7, updated_at = NOW() WHERE id = $8 RETURNING *",
     [
@@ -69,7 +71,8 @@ const deleteSale = async (id) => {
   return response.rows[0];
 };
 
-const getFaturasMesAtual = async () => {
+//busca todas as vendas (sales) registradas no banco de dados no mês atual
+const getInvoicesForCurrentMonth = async () => {
   const currentDate = new Date();
   const startOfMonth = new Date(
     currentDate.getFullYear(),
@@ -88,11 +91,12 @@ const getFaturasMesAtual = async () => {
 
   return response.rows;
 };
+
 module.exports = {
   createSale,
   getSaleById,
   listSales,
   updateSale,
   deleteSale,
-  getFaturasMesAtual,
+  getInvoicesForCurrentMonth,
 };
