@@ -3,25 +3,90 @@ const { db } = require("../config");
 const createProduct = async (product) => {
   const {
     name,
-    description,
+    observation = "",
     price,
-    production_cost,
-    quantity,
-    minimum_level,
+    production_cost = 0,
+    quantity = 0,
+    minimum_level = 0,
+    maximum_level = 0,
     category_id,
     user_id,
+    expiry_date,
+    sku,
+    profitCost,
+    profitCostType,
   } = product;
+
+  const profit_cost = parseFloat(profitCost) || 0;
+  const profit_cost_type = profitCostType || "Lucro";
+
   const response = await db.query(
-    "INSERT INTO products (name, description, price, production_cost, quantity, minimum_level, category_id, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8) RETURNING *",
+    `INSERT INTO products 
+      (name, description, price, production_cost, quantity, minimum_level, maximum_level, category_id, 
+      user_id, expiry_date, sku, profit_cost, profit_cost_type) 
+      VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) 
+      RETURNING *`,
     [
       name,
-      description,
+      observation,
       price,
       production_cost,
       quantity,
       minimum_level,
+      maximum_level,
       category_id,
       user_id,
+      expiry_date,
+      sku,
+      profit_cost,
+      profit_cost_type,
+    ]
+  );
+  return response.rows[0];
+};
+
+const updateProduct = async (id, product) => {
+  const {
+    name,
+    observation = "",
+    price,
+    production_cost = 0,
+    quantity = 0,
+    minimum_level = 0,
+    maximum_level = 0,
+    category_id,
+    user_id,
+    expiry_date,
+    sku,
+    profitCost,
+    profitCostType,
+  } = product;
+
+  const profit_cost = parseFloat(profitCost) || 0;
+  const profit_cost_type = profitCostType || "Lucro";
+
+  const response = await db.query(
+    `UPDATE products SET 
+      name = $1, description = $2, price = $3, production_cost = $4, quantity = $5, 
+      minimum_level = $6, maximum_level = $7, category_id = $8, user_id = $9, 
+      expiry_date = $10, sku = $11, profit_cost = $12, profit_cost_type = $13, 
+      updated_at = CURRENT_TIMESTAMP 
+      WHERE id = $14 RETURNING *`,
+    [
+      name,
+      observation,
+      price,
+      production_cost,
+      quantity,
+      minimum_level,
+      maximum_level,
+      category_id,
+      user_id,
+      expiry_date,
+      sku,
+      profit_cost,
+      profit_cost_type,
+      id,
     ]
   );
   return response.rows[0];
@@ -35,34 +100,6 @@ const getProductById = async (id) => {
 const listProducts = async () => {
   const response = await db.query("SELECT * FROM products");
   return response.rows;
-};
-
-const updateProduct = async (id, product) => {
-  const {
-    name,
-    description,
-    price,
-    production_cost,
-    quantity,
-    minimum_level,
-    category_id,
-    user_id,
-  } = product;
-  const response = await db.query(
-    "UPDATE products SET name = $1, description = $2, price = $3, production_cost = $4, quantity = $5, minimum_level = $6, category_id = $7, user_id = $8, updated_at = CURRENT_TIMESTAMP WHERE id = $9 RETURNING *",
-    [
-      name,
-      description,
-      price,
-      production_cost,
-      quantity,
-      minimum_level,
-      category_id,
-      user_id,
-      id,
-    ]
-  );
-  return response.rows[0];
 };
 
 const deleteProduct = async (id) => {
