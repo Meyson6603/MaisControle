@@ -22,7 +22,7 @@ const createProduct = async (product) => {
 
   const response = await db.query(
     `INSERT INTO products 
-      (name, description, price, production_cost, quantity, minimum_level, maximum_level, category_id, 
+      (name, observation, price, production_cost, quantity, minimum_level, maximum_level, category_id, 
       user_id, expiry_date, sku, profit_cost, profit_cost_type) 
       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) 
       RETURNING *`,
@@ -67,7 +67,7 @@ const updateProduct = async (id, product) => {
 
   const response = await db.query(
     `UPDATE products SET 
-      name = $1, description = $2, price = $3, production_cost = $4, quantity = $5, 
+      name = $1, observation = $2, price = $3, production_cost = $4, quantity = $5, 
       minimum_level = $6, maximum_level = $7, category_id = $8, user_id = $9, 
       expiry_date = $10, sku = $11, profit_cost = $12, profit_cost_type = $13, 
       updated_at = CURRENT_TIMESTAMP 
