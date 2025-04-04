@@ -39,7 +39,7 @@ const deleteRecurrence = async (id) => {
 };
 
 // Função para obter contas a pagar associadas a recorrências e com status 'pending'
-const getContasAPagarRecorrentes = async () => {
+const getPendingRecurringPayments = async () => {
   const response = await db.query(
     `SELECT p.* FROM payments p
      JOIN recurrences r ON p.recurrence_id = r.id
@@ -49,9 +49,9 @@ const getContasAPagarRecorrentes = async () => {
 };
 
 // Função para calcular o total das contas a pagar associadas a recorrências
-const getTotalContasAPagarRecorrentes = async () => {
+const getTotalPendingRecurringPayments = async () => {
   const response = await db.query(
-    `SELECT SUM(p.value) as total FROM payments p
+    `SELECT SUM(p.value) AS total FROM payments p
      JOIN recurrences r ON p.recurrence_id = r.id
      WHERE p.status = 'pending'`
   );
@@ -59,9 +59,9 @@ const getTotalContasAPagarRecorrentes = async () => {
 };
 
 // Função para obter todas as recorrências com pagamentos pendentes
-const getRecorrenciasPendentes = async () => {
+const getPendingRecurrences = async () => {
   const response = await db.query(
-    `SELECT r.*, p.value as payment_value, p.status FROM recurrences r
+    `SELECT r.*, p.value AS payment_value, p.status FROM recurrences r
      JOIN payments p ON r.id = p.recurrence_id
      WHERE p.status = 'pending'`
   );
@@ -69,9 +69,9 @@ const getRecorrenciasPendentes = async () => {
 };
 
 // Função para obter recorrências pendentes com base no próximo vencimento
-const getRecorrenciasPendentesPorData = async (date) => {
+const getPendingRecurrencesByDate = async (date) => {
   const response = await db.query(
-    `SELECT r.*, p.value as payment_value, p.status FROM recurrences r
+    `SELECT r.*, p.value AS payment_value, p.status FROM recurrences r
      JOIN payments p ON r.id = p.recurrence_id
      WHERE p.status = 'pending' AND r.next_due_date = $1`,
     [date]
@@ -85,8 +85,8 @@ module.exports = {
   listRecurrences,
   updateRecurrence,
   deleteRecurrence,
-  getContasAPagarRecorrentes,
-  getRecorrenciasPendentes,
-  getTotalContasAPagarRecorrentes,
-  getRecorrenciasPendentesPorData,
+  getPendingRecurringPayments,
+  getTotalPendingRecurringPayments,
+  getPendingRecurrences,
+  getPendingRecurrencesByDate,
 };
