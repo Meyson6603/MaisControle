@@ -45,21 +45,19 @@ const updatePaymentStatus = async (paymentId, status) => {
 };
 
 // Função para obter as contas a pagar (faturas pendentes)
-const getContasAPagar = async () => {
+const getPendingPayments = async () => {
   const response = await db.query(
     "SELECT * FROM payments WHERE status = 'pending'"
   );
-
-  return response.rows; // Retorna as contas a pagar (faturas pendentes)
+  return response.rows;
 };
 
 // Função para calcular o total das contas a pagar
-const getTotalContasAPagar = async () => {
+const getTotalPendingPayments = async () => {
   const response = await db.query(
-    "SELECT SUM(value) as total FROM payments WHERE status = 'pending'"
+    "SELECT SUM(value) AS total FROM payments WHERE status = 'pending'"
   );
-
-  return response.rows[0].total; // Retorna o total das contas a pagar
+  return response.rows[0].total;
 };
 
 module.exports = {
@@ -69,6 +67,6 @@ module.exports = {
   updatePayment,
   deletePayment,
   updatePaymentStatus,
-  getContasAPagar,
-  getTotalContasAPagar,
+  getPendingPayments,
+  getTotalPendingPayments,
 };
