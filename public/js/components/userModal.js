@@ -30,6 +30,7 @@ export default function renderUserModal() {
                 <img src="default-profile.png" alt="User Photo" id="updateUserPhoto">
                 <button id="changePhotoBtn">Alterar Foto</button>
             </div>
+            <div id="messageContainer" class="message-container"></div> <!-- Contêiner para mensagens -->
             <input type="text" id="updateName" placeholder="Nome">
             <input type="email" id="updateEmail" placeholder="Email">
             <input type="text" id="updateArea" placeholder="Área de Atuação">
@@ -140,6 +141,27 @@ export default function renderUserModal() {
         button:hover {
             opacity: 0.9;
         }
+        
+        .message-container {
+            margin: 10px 0;
+            padding: 10px;
+            border-radius: 5px;
+            font-size: 14px;
+            text-align: center;
+            display: none; /* Oculto por padrão */
+        }
+
+        .message-container.success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+
+        .message-container.error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
     `;
     document.head.appendChild(style);
 
@@ -161,16 +183,72 @@ export default function renderUserModal() {
         updateModal.style.display = "block";
     });
 
+    // Função para limpar os campos do modal
+    const clearInputFields = () => {
+        document.getElementById("updateName").value = "";
+        document.getElementById("updateEmail").value = "";
+        document.getElementById("updateArea").value = "";
+    };
+
     // Lógica para abrir e fechar o modal de "Atualizar Perfil"
     const closeUpdateModal = updateModal.querySelector("#closeUpdateModal");
     const exitBtn = updateModal.querySelector("#exitBtn");
 
+    const clearMessageContainer = () => {
+        const messageContainer = document.getElementById("messageContainer");
+        messageContainer.textContent = ""; // Limpa o texto da mensagem
+        messageContainer.className = "message-container"; // Remove as classes de estilo
+        messageContainer.style.display = "none"; // Oculta o contêiner
+    };
+
     closeUpdateModal.addEventListener("click", () => {
         updateModal.style.display = "none";
+        clearMessageContainer(); // Limpa a mensagem ao fechar o modal
+        clearInputFields(); // Limpa os campos ao fechar o modal
     });
 
     exitBtn.addEventListener("click", () => {
         updateModal.style.display = "none";
+        clearMessageContainer(); // Limpa a mensagem ao fechar o modal
+        clearInputFields(); // Limpa os campos ao fechar o modal
+    });
+
+    // Lógica para salvar as alterações no banco de dados
+    const saveBtn = updateModal.querySelector("#saveBtn");
+    saveBtn.addEventListener("click", async () => {
+        const name = document.getElementById("updateName").value;
+        const email = document.getElementById("updateEmail").value;
+        const area = document.getElementById("updateArea").value;
+
+        const messageContainer = document.getElementById("messageContainer");
+        messageContainer.style.display = "none"; // Oculta mensagens anteriores
+
+        const userId = 1; // Substitua pelo ID do usuário atual (pode ser armazenado em localStorage ou vindo da API)
+
+        try {
+            const response = await fetch(`http://localhost:3000/api/user/${userId}`, {
+                method: "PUT",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({ name, email, area }),
+            });
+
+            if (response.ok) {
+                messageContainer.textContent = "Perfil atualizado com sucesso!";
+                messageContainer.className = "message-container success";
+                messageContainer.style.display = "block"; // Exibe a mensagem
+            } else {
+                messageContainer.textContent = "Erro ao atualizar o perfil.";
+                messageContainer.className = "message-container error";
+                messageContainer.style.display = "block"; // Exibe a mensagem
+            }
+        } catch (error) {
+            console.error("Erro ao enviar os dados:", error);
+            messageContainer.textContent = "Erro ao atualizar o perfil.";
+            messageContainer.className = "message-container error";
+            messageContainer.style.display = "block"; // Exibe a mensagem
+        }
     });
 
     // Função para abrir o modal principal
