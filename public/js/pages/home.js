@@ -1,4 +1,5 @@
 import renderUserModal from "../components/userModal.js";
+import entries from "./entries.js"; // Importa a página de lançamentos
 
 export default function home() {
     const body = document.querySelector("body");
@@ -14,19 +15,9 @@ export default function home() {
                     <a href="#" class="header__link header__simulator" data-target="simulator">Simulador</a>
                 </nav>
                 <div class="header__actions">
-                    <a href="#" id="settings-button"><img src="../../image/settings.svg" alt="Configurações"
-                            class="header__icon"></a>
+                    <a href="#" id="settings-button"><img src="../../image/settings.svg" alt="Configurações" class="header__icon"></a>
                     <a href="#"><img src="../../image/notification.svg" alt="Notificações" class="header__icon"></a>
                     <a href="/login"><img src="../../image/exit.svg" alt="Sair" class="header__icon"></a>
-
-                    <div id="settings-menu" class="settings-menu" style="display: none;">
-                        <ul class="settings-menu__list">
-                            <li><a href="#" class="settings-menu__item">Categorias</a></li>
-                            <li><a href="#" class="settings-menu__item">Contas</a></li>
-                            <li><a href="#" class="settings-menu__item">Cartões</a></li>
-                            <li><a href="#" class="settings-menu__item">Perfil do Usuário</a></li>
-                        </ul>
-                    </div>
                 </div>
             </div>
         </header>
@@ -113,7 +104,7 @@ export default function home() {
                 </div>
             </div>
         </div>
-    </div>`
+    </div>`;
 
     // Renderiza o modal
     const userModal = renderUserModal();
@@ -123,5 +114,13 @@ export default function home() {
     settingsButton.addEventListener("click", (e) => {
         e.preventDefault();
         userModal.open(); // Abre o modal ao clicar no botão
+    });
+
+    // Adiciona evento ao link de Lançamentos
+    const entriesLink = document.querySelector('[data-target="entries"]');
+    entriesLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        history.pushState({}, "", "/entries"); // Atualiza a URL
+        entries(); // Carrega a página de lançamentos
     });
 }
