@@ -1,3 +1,5 @@
+import home from "./home.js"; // Importa a página Visão Geral
+
 export default function entries() {
     const body = document.querySelector("body");
     body.innerHTML = `
@@ -5,8 +7,8 @@ export default function entries() {
             <div class="header__container">
                 <h1 class="header__logo">+ Controle</h1>
                 <nav class="header__menu">
-                    <a href="#" class="header__link active" data-target="overview">Visão Geral</a>
-                    <a href="#" class="header__link" data-target="entries">Lançamentos</a>
+                    <a href="#" class="header__link" data-target="overview">Visão Geral</a>
+                    <a href="#" class="header__link active" data-target="entries">Lançamentos</a>
                     <a href="#" class="header__link" data-target="reports">Relatórios</a>
                     <a href="#" class="header__link" data-target="management">Gestão</a>
                     <a href="#" class="header__link header__simulator" data-target="simulator">Simulador</a>
@@ -29,6 +31,14 @@ export default function entries() {
             </section>
         </main>
     `;
+
+    // Adiciona evento ao link de Visão Geral
+    const overviewLink = document.querySelector('[data-target="overview"]');
+    overviewLink.addEventListener("click", (e) => {
+        e.preventDefault();
+        history.pushState({}, "", "/general"); // Atualiza a URL
+        home(); // Carrega a página Visão Geral
+    });
 
     // Botão para adicionar um novo lançamento
     const btnAddEntry = document.getElementById("btnAddEntry");
