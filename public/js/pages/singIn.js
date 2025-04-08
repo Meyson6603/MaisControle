@@ -49,16 +49,38 @@ export default function Signin() {
         const area = document.getElementById("input-area").value;
         const password = document.getElementById("input-password").value;
         const confirmPassword = document.getElementById("input-confirm-password").value;
+
+        // Seleciona ou cria o elemento para exibir mensagens
+        let messageBox = document.getElementById("message-box");
+        if (!messageBox) {
+            messageBox = document.createElement("div");
+            messageBox.id = "message-box";
+            messageBox.style.marginTop = "10px";
+            messageBox.style.padding = "10px";
+            messageBox.style.borderRadius = "5px";
+            messageBox.style.textAlign = "center";
+            formSignin.insertAdjacentElement("beforebegin", messageBox);
+        }
+
+        // Limpa mensagens anteriores
+        messageBox.textContent = "";
+        messageBox.style.display = "none";
+
         if (password !== confirmPassword) {
-            alert("As senhas não coincidem!");
+            messageBox.textContent = "As senhas não coincidem!";
+            messageBox.style.color = "red";
+            messageBox.style.backgroundColor = "#ffe5e5";
+            messageBox.style.display = "block";
             return;
         }
+
         const data = {
             name: name,
             email: email,
             area: area,
             password: password,
         };
+
         try {
             const response = await fetch("/register", {
                 method: "POST",
@@ -67,15 +89,26 @@ export default function Signin() {
                 },
                 body: JSON.stringify(data),
             });
+
             if (response.ok) {
-                alert("Cadastro realizado com sucesso!");
+                messageBox.textContent = "Cadastro realizado com sucesso!";
+                messageBox.style.color = "green";
+                messageBox.style.backgroundColor = "#e5ffe5";
+                messageBox.style.display = "block";
                 history.pushState({}, "", "/general");
                 home();
             } else {
-                alert("Erro ao cadastrar!");
+                messageBox.textContent = "Erro ao cadastrar!";
+                messageBox.style.color = "red";
+                messageBox.style.backgroundColor = "#ffe5e5";
+                messageBox.style.display = "block";
             }
         } catch (error) {
             console.error("Erro ao cadastrar:", error);
+            messageBox.textContent = "Erro ao cadastrar. Tente novamente mais tarde.";
+            messageBox.style.color = "red";
+            messageBox.style.backgroundColor = "#ffe5e5";
+            messageBox.style.display = "block";
         }
     })
 
