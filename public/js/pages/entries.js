@@ -2,8 +2,21 @@ export default function entries() {
     const body = document.querySelector("body");
     body.innerHTML = `
         <header class="header">
-            <div class="header__logo">+ Controle</div>
-            <button class="header__button" id="btnHome">Início</button>
+            <div class="header__container">
+                <h1 class="header__logo">+ Controle</h1>
+                <nav class="header__menu">
+                    <a href="#" class="header__link active" data-target="overview">Visão Geral</a>
+                    <a href="#" class="header__link" data-target="entries">Lançamentos</a>
+                    <a href="#" class="header__link" data-target="reports">Relatórios</a>
+                    <a href="#" class="header__link" data-target="management">Gestão</a>
+                    <a href="#" class="header__link header__simulator" data-target="simulator">Simulador</a>
+                </nav>
+                <div class="header__actions">
+                    <a href="#" id="settings-button"><img src="../../image/settings.svg" alt="Configurações" class="header__icon"></a>
+                    <a href="#"><img src="../../image/notification.svg" alt="Notificações" class="header__icon"></a>
+                    <a href="/login"><img src="../../image/exit.svg" alt="Sair" class="header__icon"></a>
+                </div>
+            </div>
         </header>
 
         <main class="container">
@@ -17,18 +30,10 @@ export default function entries() {
         </main>
     `;
 
-    // Botão para voltar à página inicial
-    const btnHome = document.getElementById("btnHome");
-    btnHome.addEventListener("click", () => {
-        history.pushState({}, "", "/general");
-        import("./home.js").then((module) => module.default());
-    });
-
     // Botão para adicionar um novo lançamento
     const btnAddEntry = document.getElementById("btnAddEntry");
     btnAddEntry.addEventListener("click", () => {
         alert("Adicionar lançamento clicado!");
-        // Aqui você pode abrir um modal ou redirecionar para outra página para adicionar lançamentos
     });
 
     // Função para carregar lançamentos (exemplo)
