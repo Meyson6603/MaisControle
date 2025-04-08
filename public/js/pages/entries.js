@@ -1,4 +1,5 @@
 import home from "./home.js"; // Importa a página Visão Geral
+import renderUserModal from "../components/userModal.js"; // Importa o modal de usuário
 
 export default function entries() {
     const body = document.querySelector("body");
@@ -31,6 +32,16 @@ export default function entries() {
             </section>
         </main>
     `;
+
+    // Renderiza o modal
+    const userModal = renderUserModal();
+
+    // Adiciona evento ao botão de configurações
+    const settingsButton = document.getElementById("settings-button");
+    settingsButton.addEventListener("click", (e) => {
+        e.preventDefault();
+        userModal.open(); // Abre o modal ao clicar no botão
+    });
 
     // Adiciona evento ao link de Visão Geral
     const overviewLink = document.querySelector('[data-target="overview"]');
