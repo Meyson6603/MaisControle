@@ -1,3 +1,21 @@
+// Armazena no localStorage direto aqui mesmo
+const addProductToLocalStorage = (product) => {
+  const existingProducts = JSON.parse(localStorage.getItem("products")) || [];
+
+  // Garante que campos numéricos sejam salvos como números
+  const formattedProduct = {
+    ...product,
+    price: Number(product.price),
+    profitCost: Number(product.profitCost),
+    quantity: Number(product.quantity),
+    minimum: Number(product.minimum),
+    maximum: Number(product.maximum),
+  };
+
+  existingProducts.push(formattedProduct);
+  localStorage.setItem("products", JSON.stringify(existingProducts));
+};
+
 const ProductModal = () => {
   const bloco = document.createElement("div");
   bloco.classList.add("modal");
@@ -176,7 +194,8 @@ const attachEventListeners = (bloco) => {
     const form = bloco.querySelector(".modal__form");
     const data = new FormData(form);
     const dataObj = Object.fromEntries(data.entries());
-    console.log(dataObj);
+    addProductToLocalStorage(dataObj);
+
     bloco.remove();
   });
 };
