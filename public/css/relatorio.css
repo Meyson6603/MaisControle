@@ -1,0 +1,165 @@
+.report-container {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.report-container h1 {
+  font-size: 2rem;
+  margin-bottom: 24px;
+  text-align: center;
+  color: #333;
+}
+
+.relatorio-filtros {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 32px;
+  justify-content: center;
+  align-items: center;
+}
+
+.relatorio-filtros label {
+  display: flex;
+  flex-direction: column;
+  font-weight: 500;
+  color: #444;
+  font-size: 0.95rem;
+}
+
+.relatorio-filtros input[type="date"],
+.relatorio-filtros select {
+  padding: 8px 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 0.95rem;
+  margin-top: 4px;
+}
+
+#aplicar-filtros {
+  background-color: #007bff;
+  color: white;
+  padding: 10px 18px;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-size: 1rem;
+  transition: background-color 0.3s;
+}
+
+#aplicar-filtros:hover {
+  background-color: #0056b3;
+}
+
+.relatorio-graficos {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+
+@media (min-width: 768px) {
+  .relatorio-graficos {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-between;
+  }
+
+  .relatorio-graficos > div {
+    width: 48%;
+    height: 400px !important;
+  }
+}
+
+@media (min-width: 1200px) {
+  .relatorio-graficos > div {
+    width: 32%;
+  }
+}
+
+.secao-relatorio {
+  max-width: 1200px;
+  margin: 40px auto;
+  padding: 20px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.secao-relatorio h3 {
+  font-size: 1.5rem;
+  margin-bottom: 20px;
+  text-align: center;
+  color: #333;
+}
+
+.secao-relatorio table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.95rem;
+}
+
+.secao-relatorio th,
+.secao-relatorio td {
+  padding: 12px 16px;
+  text-align: left;
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.secao-relatorio th {
+  background-color: #f5f5f5;
+  font-weight: 600;
+  color: #333;
+}
+
+.secao-relatorio tr:hover {
+  background-color: #f9f9f9;
+}
+
+.secao-relatorio td {
+  color: #555;
+}
+
+@media (max-width: 768px) {
+  .secao-relatorio table,
+  .secao-relatorio thead,
+  .secao-relatorio tbody,
+  .secao-relatorio th,
+  .secao-relatorio td,
+  .secao-relatorio tr {
+    display: block;
+  }
+
+  .secao-relatorio tr {
+    margin-bottom: 15px;
+    background-color: #fff;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.05);
+    padding: 10px;
+    border-radius: 8px;
+  }
+
+  .secao-relatorio td {
+    text-align: right;
+    padding-left: 50%;
+    position: relative;
+  }
+
+  .secao-relatorio td::before {
+    content: attr(data-label);
+    position: absolute;
+    left: 16px;
+    width: 45%;
+    text-align: left;
+    font-weight: bold;
+    color: #333;
+  }
+
+  .secao-relatorio th {
+    display: none;
+  }
+}
