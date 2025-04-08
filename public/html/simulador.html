@@ -1,0 +1,239 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <title>Relatórios - +Controle</title>
+
+  <link rel="stylesheet" href="../css/general.css">
+  <link rel="stylesheet" href="../css/relatorio.css">
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f9f9f9;
+      padding: 2rem;
+    }
+    .simulador-container {
+      max-width: 600px;
+      margin: 0 auto;
+      background: #fff;
+      padding: 2rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    }
+    input[type="number"] {
+      width: 100%;
+      padding: 0.75rem;
+      margin: 1rem 0;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    button {
+      padding: 0.75rem 1.5rem;
+      background: #4CAF50;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+    button:hover {
+      background: #45a049;
+    }
+    #resultado-simulacao p {
+      background: #f1f1f1;
+      padding: 0.75rem;
+      margin: 0.5rem 0;
+      border-left: 4px solid #4CAF50;
+    }
+
+    #products-container {
+  margin-top: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.product-summary {
+  background-color: #f9f9f9;
+  border-left: 4px solid #4caf50;
+  padding: 8px 12px;
+  border-radius: 6px;
+  font-size: 14px;
+  color: #333;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.product-summary .product-name {
+  font-weight: 500;
+}
+
+.product-summary .product-qty,
+.product-summary .product-total {
+  font-size: 13px;
+  color: #666;
+}
+
+  </style>
+</head>
+<body>
+    <header class="header">
+        <div class="header__container">
+            <h1 class="header__logo">+ Controle</h1>
+            <nav class="header__menu">
+                <a href="./general.html" class="header__link" data-target="overview">Visão Geral</a>
+                <a href="#" class="header__link" data-target="entries">Lançamentos</a>
+                <a href="#" class="header__link" data-target="reports">Relatórios</a>
+                <a href="#" class="header__link" data-target="management">Gestão</a>
+                <a href="#" class="header__link header__simulator active" data-target="simulator">Simulador</a>
+            </nav>
+            <div class="header__actions">
+                <a href="#" id="settings-button"><img src="/public/image/settings.svg" alt="Configurações"
+                        class="header__icon"></a>
+                <a href="#"><img src="/public/image/notification.svg" alt="Notificações" class="header__icon"></a>
+                <a href="./login.html"><img src="/public/image/exit.svg" alt="Sair" class="header__icon"></a>
+
+                <div id="settings-menu" class="settings-menu" style="display: none;">
+                    <ul class="settings-menu__list">
+                        <li><a href="#" class="settings-menu__item">Categorias</a></li>
+                        <li><a href="#" class="settings-menu__item">Contas</a></li>
+                        <li><a href="#" class="settings-menu__item">Cartões</a></li>
+                        <li><a href="#" class="settings-menu__item">Perfil do Usuário</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main class="simulador-container">
+        <h1>Simulador de Faturamento</h1>
+  
+        <section class="form-section">
+          <label for="meta-faturamento">Qual o faturamento desejado?</label>
+          <input type="number" id="meta-faturamento" placeholder="Ex: 5000" />
+          <button id="simular-btn">Simular</button>
+          <button id="refazer-btn" class="refazer" style="display: none;">Refazer Simulação</button>
+        </section>
+  
+        <section id="resultado-simulacao" class="resultado"></section>
+      </main>
+  
+      <script>
+        function calcularFaturamentoTotal(vendas) {
+          const total = vendas.reduce((acc, venda) => acc + (parseFloat(venda.total) || 0), 0);
+          console.log("Faturamento atual:", total); 
+          return total;
+        }
+
+        // Função para gerar devolutiva inteligente para a simulação
+        function gerarDevolutivaInteligente(vendas, produtos, meta) {
+          const faturamentoAtual = calcularFaturamentoTotal(vendas);
+          const diferenca = meta - faturamentoAtual;
+          const sugestoes = [];
+
+          if (diferenca <= 0) {
+            return `Parabéns! Sua média mensal já atinge o valor desejado de R$ ${meta.toFixed(2)}.`;
+          }
+
+          const produtosVendidos = {};
+
+          // Contabiliza o total vendido por SKU
+          vendas.forEach(venda => {
+            venda.products.forEach(prod => {
+              if (!produtosVendidos[prod.product_sku]) {
+                produtosVendidos[prod.product_sku] = {
+                  ...prod,
+                  totalVendido: 0
+                };
+              }
+              produtosVendidos[prod.product_sku].totalVendido += parseInt(prod.quantity);
+            });
+          });
+
+          // Junta com os produtos cadastrados
+          const produtosComLucro = Object.values(produtosVendidos).map(vendido => {
+            const cadastro = produtos.find(p => p.sku === vendido.product_sku);
+            if (!cadastro) return null;
+
+            const valorBase = parseFloat(cadastro.profitCost || 0); // Garantindo que profitCost seja número
+            const tipo = (String(cadastro.profitCost).toLowerCase() || "").includes("lucro") ? "lucro" : "custo"; // Garantir que profitCost seja string
+            const lucro = tipo === "lucro" ? valorBase : (parseFloat(cadastro.price) - valorBase);
+
+            return {
+              ...vendido,
+              name: cadastro.name,
+              lucro,
+              tipo,
+              max: parseInt(cadastro.maximum || 1000),
+              demandFactor: parseFloat(cadastro.demandFactor || 1), // Ajusta com base na demanda
+            };
+          }).filter(p => p !== null);
+
+          // Ordena por lucro e demanda
+          produtosComLucro.sort((a, b) => (b.lucro * b.demandFactor) - (a.lucro * a.demandFactor));
+
+          let restante = diferenca;
+
+          for (const produto of produtosComLucro) {
+            const vendasNecessarias = Math.ceil(restante / produto.lucro);
+            const vendasPlanejadas = Math.min(vendasNecessarias, produto.max);
+
+            sugestoes.push(
+              `Vender cerca de <strong>${vendasPlanejadas}</strong> unidades de <strong>${produto.name}</strong> ` +
+              `(lucro por unidade: R$ ${produto.lucro.toFixed(2)}).`
+            );
+
+            restante -= vendasPlanejadas * produto.lucro;
+            if (restante <= 0) break;
+          }
+
+          let mensagem = `Para atingir R$ ${meta.toFixed(2)} de faturamento, você pode:<br><ul><li>${sugestoes.join("</li><li>")}</li></ul>`;
+
+          if (restante > 0) {
+            mensagem += `<p class="alerta">Mesmo com o máximo dos produtos disponíveis, a meta não será atingida. Avalie novos produtos ou estratégias.</p>`;
+          }
+
+          return mensagem;
+        }
+
+        document.getElementById("simular-btn").addEventListener("click", function () {
+          const meta = parseFloat(document.getElementById("meta-faturamento").value);
+          
+          const resultadoEl = document.getElementById("resultado-simulacao");
+          const refazerBtn = document.getElementById("refazer-btn");
+          const simularBtn = document.getElementById("simular-btn");
+
+          refazerBtn.style.display = "block";
+          simularBtn.style.display = "none";
+          resultadoEl.innerHTML = "";
+          
+          if (isNaN(meta) || meta <= 0) {
+            console.log("Valor de meta inválido:", meta);
+            resultadoEl.innerHTML = "<p class='erro'>Insira uma meta válida.</p>";
+            return;
+          }
+
+          const produtos = JSON.parse(localStorage.getItem("products")) || [];
+          const vendas = JSON.parse(localStorage.getItem("sales")) || [];
+
+          console.log("Produtos no localStorage:", produtos);
+          console.log("Vendas no localStorage:", vendas);
+
+          if (vendas.length === 0) {
+            resultadoEl.innerHTML = "<p class='erro'>Nenhuma venda registrada para simulação.</p>";
+            return;
+          }
+
+          // Gerar a devolutiva da simulação inteligente
+          const resultado = gerarDevolutivaInteligente(vendas, produtos, meta);
+          resultadoEl.innerHTML = resultado;
+        });
+
+        document.getElementById("refazer-btn").addEventListener("click", function () {
+          document.getElementById("meta-faturamento").value = "";
+          document.getElementById("resultado-simulacao").innerHTML = "";
+          document.getElementById("refazer-btn").style.display = "none";
+          document.getElementById("simular-btn").style.display = "block";
+        });
+      </script>
+</body>
+</html>
