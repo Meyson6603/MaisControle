@@ -4,6 +4,7 @@ import login from "./pages/login.js";
 import singIn from "./pages/singIn.js";
 import user from "./pages/user.js";
 import home from "./pages/home.js";
+import entries from "./pages/entries.js";
 
 window.addEventListener("load", () => {
 
@@ -21,6 +22,8 @@ window.addEventListener("load", () => {
         user();
     } else if (path === "/general") {
         home();
+    } else if (path === "/entries") {
+        entries();
     }
 
     else {
@@ -41,6 +44,8 @@ window.addEventListener('popstate', () => {
         user();
     } else if (path === "/general") {
         home();
+    } else if (path === "/entries") {
+        entries();
     }
     else {
         document.querySelector("body").innerHTML = "<h1>Página não encontrada</h1>";
