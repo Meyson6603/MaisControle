@@ -1,3 +1,4 @@
+// Carrega transações do localStorage
 const loadTransactions = () => {
   const transactions = JSON.parse(localStorage.getItem("transactions")) || {
     incomes: [],
@@ -8,12 +9,18 @@ const loadTransactions = () => {
 
 let transactions = loadTransactions();
 
+// Salva transações no localStorage
 const saveTransactions = () => {
   localStorage.setItem("transactions", JSON.stringify(transactions));
 };
 
-// Função para adicionar transações de receita e despesa
+// Adiciona uma nova transação
 export const addTransaction = (type, transaction) => {
+  if (!transaction.value || isNaN(transaction.value) || !transaction.date) {
+    console.error("Transação inválida:", transaction);
+    return;
+  }
+
   if (type === "expense") {
     transactions.expenses.push(transaction);
   } else if (type === "income") {
@@ -21,183 +28,116 @@ export const addTransaction = (type, transaction) => {
   }
 
   saveTransactions();
-
-  console.log("Transações após adicionar:", transactions);
-  updateSaldoGeral();
-  updateFaturasDoMes();
-  updateContasAReceber();
-  updateContasAPagar();
+  updateAll();
   updateTotalUI();
 };
 
-// Função para obter o mês atual
-const getCurrentMonth = () => {
-  const currentDate = new Date();
-  return currentDate.getMonth();
+// Normaliza a data (zera horário)
+const normalizeDate = (date) => {
+  const d = new Date(date);
+  return new Date(d.getFullYear(), d.getMonth(), d.getDate());
 };
 
-// Função para verificar se a data da transação é do mês atual
+// Verifica se a data é do mês e ano atuais
+const getCurrentYearMonth = () => {
+  const now = new Date();
+  return `${now.getFullYear()}-${now.getMonth()}`;
+};
+
 const isCurrentMonth = (date) => {
   const transactionDate = new Date(date);
-  const currentMonth = getCurrentMonth();
-  return transactionDate.getMonth() === currentMonth;
+  const transactionYearMonth = `${transactionDate.getFullYear()}-${transactionDate.getMonth()}`;
+  return transactionYearMonth === getCurrentYearMonth();
 };
 
-// Função para verificar se a data da transação já passou ou é igual à data atual
+// Verifica se a data é hoje ou já passou
 const isDueOrPast = (date) => {
-  const transactionDate = new Date(date);
-  const currentDate = new Date();
-  return transactionDate <= currentDate;
+  return normalizeDate(date) <= normalizeDate(new Date());
 };
 
-// Função para calcular as faturas do mês atual
+// Soma transações com filtro
+const sumTransactions = (items, filterFn = () => true) => {
+  return items
+    .filter(filterFn)
+    .reduce((sum, item) => sum + parseFloat(item.value || 0), 0);
+};
+
+// Cálculos específicos
 const calculateMonthlyInvoices = () => {
-  const monthlyExpenses = transactions.expenses.filter((expense) =>
-    isCurrentMonth(expense.date)
-  );
-  const totalMonthlyExpenses = monthlyExpenses.reduce(
-    (total, expense) => total + parseFloat(expense.value || 0),
-    0
-  );
-
-  return totalMonthlyExpenses;
+  return sumTransactions(transactions.expenses, (e) => isCurrentMonth(e.date));
 };
 
-// Para contas a pagar (despesas vencidas ou vencendo hoje)
 const calculatePayableAccounts = () => {
-  const payableExpenses = transactions.expenses.filter((expense) =>
-    isDueOrPast(expense.date)
-  );
-  const totalPayableExpenses = payableExpenses.reduce(
-    (total, expense) => total + parseFloat(expense.value || 0),
-    0
-  );
-
-  return totalPayableExpenses;
+  return sumTransactions(transactions.expenses, (e) => isDueOrPast(e.date));
 };
 
-// Para contas a receber (receitas vencidas ou vencendo hoje)
 const calculateReceivableAccounts = () => {
-  const receivableIncomes = transactions.incomes.filter((income) =>
-    isDueOrPast(income.date)
-  );
-  const totalReceivableIncomes = receivableIncomes.reduce(
-    (total, income) => total + parseFloat(income.value || 0),
-    0
-  );
-
-  return totalReceivableIncomes;
-};
-
-// Função para calcular o saldo geral
-export const calculateSaldoGeral = () => {
-  const totalMonthlyIncomes = calculateTotalIncomesThisMonth();
-  const totalMonthlyExpenses = calculateMonthlyInvoices();
-
-  const saldoGeral = totalMonthlyIncomes - totalMonthlyExpenses;
-
-  return saldoGeral;
-};
-
-const calculateTotalIncomesThisMonth = () => {
-  const monthlyIncomes = transactions.incomes.filter((income) =>
-    isCurrentMonth(income.date)
-  );
-  const totalMonthlyIncomes = monthlyIncomes.reduce(
-    (total, income) => total + parseFloat(income.value || 0),
-    0
-  );
-  return totalMonthlyIncomes;
+  return sumTransactions(transactions.incomes, (i) => isDueOrPast(i.date));
 };
 
 const calculateTotalExpenses = () => {
-  return transactions.expenses.reduce(
-    (sum, expense) => sum + parseFloat(expense.value || 0),
-    0
-  );
+  return sumTransactions(transactions.expenses);
 };
 
 const calculateTotalIncomes = () => {
-  return transactions.incomes.reduce(
-    (sum, income) => sum + parseFloat(income.value || 0),
-    0
-  );
+  return sumTransactions(transactions.incomes);
 };
 
-// Função para atualizar o saldo geral
-export const updateSaldoGeral = () => {
-  const saldoGeral = calculateSaldoGeral();
-  const saldoElement = document.querySelector(
-    ".cards-container .card:nth-child(1) .card__value"
-  );
-
-  if (saldoElement) {
-    saldoElement.textContent = saldoGeral.toFixed(2);
-    saldoElement.classList.toggle("negative-value", saldoGeral < 0);
-    saldoElement.classList.toggle("positive-value", saldoGeral >= 0);
-  } else {
-    console.error("Elemento para saldo geral não encontrado.");
-  }
+const calculateTotalIncomesThisMonth = () => {
+  return sumTransactions(transactions.incomes, (i) => isCurrentMonth(i.date));
 };
 
-export const updateFaturasDoMes = () => {
+export const calculateSaldoGeral = () => {
+  const totalMonthlyIncomes = calculateTotalIncomesThisMonth();
   const totalMonthlyExpenses = calculateMonthlyInvoices();
-  const faturasElement = document.querySelector(
-    ".cards-container .card:nth-child(2) .card__value"
-  );
+  return totalMonthlyIncomes - totalMonthlyExpenses;
+};
 
-  if (faturasElement) {
-    faturasElement.textContent = totalMonthlyExpenses.toFixed(2);
-    faturasElement.classList.toggle("negative-value", totalMonthlyExpenses < 0);
-    faturasElement.classList.toggle(
-      "positive-value",
-      totalMonthlyExpenses >= 0
-    );
+// Atualização de cards (valor e classes)
+const updateCardValue = (selector, value) => {
+  const element = document.querySelector(selector);
+  if (element) {
+    element.textContent = value.toFixed(2);
+    element.classList.toggle("negative-value", value < 0);
+    element.classList.toggle("positive-value", value >= 0);
   } else {
-    console.error("Elemento para faturas do mês não encontrado.");
+    console.error(`Elemento ${selector} não encontrado.`);
   }
 };
 
-// Função para atualizar contas a receber
+// Atualiza saldo geral
+export const updateSaldoGeral = () => {
+  updateCardValue(
+    ".cards-container .card:nth-child(1) .card__value",
+    calculateSaldoGeral()
+  );
+};
+
+// Atualiza faturas do mês
+export const updateFaturasDoMes = () => {
+  updateCardValue(
+    ".cards-container .card:nth-child(2) .card__value",
+    calculateMonthlyInvoices()
+  );
+};
+
+// Atualiza contas a receber
 export const updateContasAReceber = () => {
-  const totalReceivable = calculateReceivableAccounts();
-  const receberElement = document.querySelector(
-    ".cards-container .card:nth-child(3) .card__value"
+  updateCardValue(
+    ".cards-container .card:nth-child(3) .card__value",
+    calculateReceivableAccounts()
   );
-
-  if (receberElement) {
-    receberElement.textContent = totalReceivable.toFixed(2);
-    receberElement.classList.toggle("negative-value", totalReceivable < 0);
-    receberElement.classList.toggle("positive-value", totalReceivable >= 0);
-  } else {
-    console.error("Elemento para contas a receber não encontrado.");
-  }
 };
 
-// Função para atualizar contas a pagar
+// Atualiza contas a pagar
 export const updateContasAPagar = () => {
-  const totalPayable = calculatePayableAccounts();
-  const pagarElement = document.querySelector(
-    ".cards-container .cards--right .card__value"
+  updateCardValue(
+    ".cards-container .cards--right .card__value",
+    calculatePayableAccounts()
   );
-
-  if (pagarElement) {
-    pagarElement.textContent = totalPayable.toFixed(2);
-    pagarElement.classList.toggle("negative-value", totalPayable < 0);
-    pagarElement.classList.toggle("positive-value", totalPayable >= 0);
-  } else {
-    console.error("Elemento para contas a pagar não encontrado.");
-  }
 };
 
-// Atualiza todas as informações ao carregar a página
-export const updateAll = () => {
-  updateSaldoGeral();
-  updateFaturasDoMes();
-  updateContasAReceber();
-  updateContasAPagar();
-};
-
+// Atualiza totais no rodapé (total de receitas e despesas)
 export const updateTotalUI = () => {
   const totalExpenses = calculateTotalExpenses();
   const totalIncomes = calculateTotalIncomes();
@@ -210,6 +150,7 @@ export const updateTotalUI = () => {
   ).textContent = `R$ ${totalExpenses.toFixed(2)}`;
 };
 
+// Atualiza o nome do mês atual na UI
 const setCurrentMonth = () => {
   const monthNames = [
     "Janeiro",
@@ -225,10 +166,8 @@ const setCurrentMonth = () => {
     "Novembro",
     "Dezembro",
   ];
-
   const currentDate = new Date();
   const currentMonthName = monthNames[currentDate.getMonth()];
-
   const monthElements = document.querySelectorAll(".current-month");
 
   monthElements.forEach((monthElement) => {
@@ -236,10 +175,18 @@ const setCurrentMonth = () => {
   });
 };
 
-// Chamar a função ao carregar a página
+// Atualiza todas as seções
+export const updateAll = () => {
+  updateSaldoGeral();
+  updateFaturasDoMes();
+  updateContasAReceber();
+  updateContasAPagar();
+};
+
+// Retorna todas as transações
+export const getTransactions = () => transactions;
+
+// Eventos ao carregar a página
 document.addEventListener("DOMContentLoaded", updateAll);
 document.addEventListener("DOMContentLoaded", setCurrentMonth);
 document.addEventListener("DOMContentLoaded", updateTotalUI);
-
-// Função para retornar todas as transações
-export const getTransactions = () => transactions;
