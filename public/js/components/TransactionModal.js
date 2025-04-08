@@ -181,7 +181,6 @@ const TransactionModal = (expense = true) => {
     }
     const type = dataObj.expense === "true" ? "expense" : "income";
     addTransaction(type, dataObj);
-    e;
     updateUI();
 
     bloco.remove();
