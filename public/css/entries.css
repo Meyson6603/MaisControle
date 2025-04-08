@@ -100,9 +100,52 @@ body, html {
   }
   
   .header {
+    background-color: #1e1e1e;
+    color: white;
+    padding: 12px 24px;
     display: flex;
-    justify-content: space-between;
     align-items: center;
+    justify-content: space-between;
+  }
+  
+  .header__container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+  }
+  
+  .header__logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #ffffff;
+  }
+  
+  .header__menu {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .header__link {
+    color: #ccc;
+    font-size: 0.9rem;
+    text-decoration: none;
+  }
+  
+  .header__link.active {
+    color: #16a34a;
+    font-weight: bold;
+  }
+  
+  .header__actions {
+    display: flex;
+    gap: 16px;
+  }
+  
+  .header__icon {
+    width: 24px;
+    height: 24px;
+    cursor: pointer;
   }
   
   .add-button {
@@ -162,4 +205,3 @@ body, html {
     font-size: 2rem;
     margin-bottom: 10px;
   }
-  
